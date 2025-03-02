@@ -1,1 +1,180 @@
-/* You can add global styles to this file, and also import other style files */
+
+.login-box {
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+
+@media (max-width: 768px) {
+  .login-box {
+    padding: 15px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .input-box {
+    margin-bottom: 10px;
+  }
+
+  .btn {
+    font-size: 0.9rem;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .login-box {
+    padding: 10px;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  .btn {
+    font-size: 0.8rem;
+  }
+}
+
+input[type="text"], input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  input[type="text"], input[type="password"] {
+    font-size: 0.9rem;
+  }
+}
+
+.btn {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .btn {
+    font-size: 0.9rem;
+  }
+}
+
+
+
+
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+}
+
+body {
+  background-color: royalblue;
+  font-family: "Poppins", sans-serif;
+}
+
+
+
+.login-box {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+
+
+
+.register-box {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h2, .login-link a {
+  color: #333;
+}
+
+.input-group-text {
+  background-color: transparent;
+  border: none;
+  color: #333;
+}
+
+input[type="text"], input[type="email"], input[type="password"] {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #333;
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+
+
+
+.btn {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+
+@media (max-width: 768px) {
+  .register-box {
+    padding: 15px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  input[type="text"], input[type="email"], input[type="password"] {
+    font-size: 0.9rem;
+  }
+
+  .btn {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-box {
+    padding: 10px;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  .btn {
+    font-size: 0.8rem;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+

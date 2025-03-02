@@ -1,3 +1,42 @@
-<p>login works!</p>
+<div class="login-background">
+  <div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="login-box p-4 p-md-5">
+      <h2>Bejelentkezés</h2>
+      <form (ngSubmit)="login()">
+        <div class="input-box mb-3">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+            </div>
+            <input type="email" class="form-control" placeholder="Email cím" [(ngModel)]="model.email" name="email"
+              required autocomplete="email" [class.is-invalid]="isSubmitted && !model.email">
+          </div>
+        </div>
+
+        <div class="input-box mb-3">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-lock"></i></span>
+            </div>
+            <input type="password" class="form-control" placeholder="Jelszó" [(ngModel)]="model.password" name="password"
+              required autocomplete="current-password" [class.is-invalid]="isSubmitted && !model.password">
+          </div>
+          <p class="forgot-password mt-2">
+            <a routerLink="/forgot-password">Elfelejtett jelszó?</a>
+          </p>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Bejelentkezés</button>
+        <p class="register-link mt-3">Nincs még fiókja? <a routerLink="/register">Regisztráció</a></p>
+      </form>
+
+      <div *ngIf="message" [ngClass]="{ 'success-message': isSuccess, 'error-message': !isSuccess }">
+        {{ message }}
+      </div>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>
+
 
 <router-outlet></router-outlet>
