@@ -1,4 +1,5 @@
-<p>register works!</p><div class="register-background">
+
+<div class="register-background">
   <div class="container d-flex justify-content-center align-items-center min-vh-100">
     <div class="register-box p-4 p-md-5">
       <h2>Regisztráció</h2>
@@ -30,7 +31,7 @@
               <span class="input-group-text"><i class="fas fa-lock"></i></span>
             </div>
             <input type="password" class="form-control" placeholder="Jelszó" [(ngModel)]="user.password" name="password"
-              required  #password="ngModel" [class.is-invalid]="isSubmitted && password.invalid">
+              required #password="ngModel" [class.is-invalid]="isSubmitted && password.invalid">
           </div>
         </div>
 
@@ -39,8 +40,8 @@
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="fas fa-lock"></i></span>
             </div>
-            <input type="password" class="form-control" placeholder="Jelszó megerősítése" [(ngModel)]="user.confirmPassword"
-              name="confirmPassword" required #confirmPassword="ngModel"
+            <input type="password" class="form-control" placeholder="Jelszó megerősítése"
+              [(ngModel)]="user.confirmPassword" name="confirmPassword" required #confirmPassword="ngModel"
               [class.is-invalid]="isSubmitted && confirmPassword.invalid">
           </div>
         </div>
@@ -48,16 +49,14 @@
         <button type="submit" class="btn btn-primary btn-block">Regisztráció</button>
         <p class="login-link mt-3">Már van fiókja? <a routerLink="/login">Bejelentkezés</a></p>
       </form>
-       @if (message) {
-        <div  [ngClass]="{ 'success-message': isSuccess, 'error-message': !isSuccess }">
-          {{ message }}
-        </div>
-       }
+      @if (message) {
+      <div [ngClass]="{ 'success-message': isSuccess, 'error-message': !isSuccess }">
+        {{ message }}
+      </div>
+      }
 
 
     </div>
   </div>
-  </div>
-  <router-outlet></router-outlet>
-
-
+</div>
+<router-outlet></router-outlet>
