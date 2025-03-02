@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class ConfigService {
 
   apiUrl = 'http://localhost:3000/auth';
+  tavakUrl = 'http://localhost:3000';
 
   constructor() { }
 }
