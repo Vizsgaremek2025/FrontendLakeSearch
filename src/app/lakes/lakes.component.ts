@@ -46,7 +46,7 @@ export class LakesComponent {
     });
   }
 
-  // Frissített szűrési logika
+
   filterLakes() {
     console.log('Szűrési feltételek:', { searchText: this.searchText, selectedCounty: this.selectedCounty });
 
@@ -58,11 +58,11 @@ export class LakesComponent {
 
     console.log('Szűrt tavak:', this.filteredLakes);
 
-    // Ha nincs megye kiválasztva, újraindítjuk a lapozást
+
     if (!this.selectedCounty) {
       this.currentPage = 1;
       this.totalPages = Math.ceil(this.filteredLakes.length / this.itemsPerPage);
-      this.applyPagination(); // Frissítjük az oldalakra bontást
+      this.applyPagination();
     }
   }
 
@@ -74,7 +74,7 @@ export class LakesComponent {
     }
   }
 
-  // Lapozás előző oldal
+
   prevPage() {
     if (this.currentPage > 1) {
       this.currentPage--;
@@ -108,7 +108,7 @@ export class LakesComponent {
           }
         }
 
-        // Lapozás logika hozzáadása
+
         this.totalPages = Math.ceil(this.lakes.length / this.limit);
         this.applyPagination();
 
@@ -120,7 +120,7 @@ export class LakesComponent {
     });
   }
 
-  // Lapozási logika frontend szinten
+
   applyPagination() {
     const start = (this.currentPage - 1) * this.limit;
     const end = start + this.limit;
