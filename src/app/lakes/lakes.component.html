@@ -1,1 +1,41 @@
-<p>lakes works!</p>
+<div class="container">
+  <h1>Tavak listája</h1>
+
+
+  <div class="filter-container">
+
+    <select id="county" [(ngModel)]="selectedCounty" (change)="filterLakes()">
+      <option value="">Válassz egy megyét:</option>
+      @for (county of counties; track $index) {
+        <option [value]="county._id">{{ county.name }}</option>
+      }
+    </select>
+  </div>
+
+
+  <div class="lake-list">
+    @for (lake of filteredLakes; track $index) {
+      <div class="lake-card">
+        <img [src]="lake.img" class="lake-image" alt="{{ lake.name }}" />
+        <div class="lake-info">
+          <h3>{{ lake.name }}</h3>
+          <p><strong>Elhelyezkedés: </strong> {{ lake.location }}</p>
+          <p><strong>Vízmélység: </strong>{{ lake.water_depth }} méter</p>
+          <p><strong>Stégek száma: </strong>{{ lake.steg_number }} db</p>
+          <button class="details-button" (click)="viewDetails(lake?._id)"><i class="fas fa-info-circle"></i> Részletek</button>
+        </div>
+      </div>
+    }
+  </div>
+
+  @if (!disablePagination) {
+    <div class="pagination">
+      <button (click)="prevPage()" [disabled]="currentPage === 1">Előző</button>
+      <span>Oldal {{ currentPage }} / {{ totalPages }}</span>
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages">Következő</button>
+    </div>
+  }
+</div>
+
+
+
