@@ -120,6 +120,13 @@ export class LakesComponent {
     });
   }
 
+  applyFilter() {
+    this.filteredLakes = this.lakes.filter(lake =>
+      lake.name.toLowerCase().includes(this.searchText.toLowerCase())
+
+    );
+  }
+
 
   applyPagination() {
     const start = (this.currentPage - 1) * this.limit;
