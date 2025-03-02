@@ -29,14 +29,16 @@
         <button type="submit" class="btn btn-primary btn-block">Bejelentkezés</button>
         <p class="register-link mt-3">Nincs még fiókja? <a routerLink="/register">Regisztráció</a></p>
       </form>
+      @if (message) {
+        <div  [ngClass]="{ 'success-message': isSuccess, 'error-message': !isSuccess }">
+          {{ message }}
+        </div>
+      }
 
-      <div *ngIf="message" [ngClass]="{ 'success-message': isSuccess, 'error-message': !isSuccess }">
-        {{ message }}
-      </div>
     </div>
   </div>
 </div>
 <router-outlet></router-outlet>
 
 
-<router-outlet></router-outlet>
+

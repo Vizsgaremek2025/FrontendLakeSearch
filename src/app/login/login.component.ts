@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterOutlet,FormsModule,CommonModule],
+  imports: [RouterModule,FormsModule,CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -26,7 +26,7 @@ export class LoginComponent {
     this.isSubmitted = true;
     this.message = '';
 
-    // Ellenőrizzük, hogy minden mező ki van-e töltve
+
     if (!this.model.email || !this.model.password) {
       this.message = 'Minden mező kitöltése kötelező!';
       this.isSuccess = false;
@@ -42,7 +42,7 @@ export class LoginComponent {
           this.message = 'Sikeres bejelentkezés!'
           this.isSuccess = true;
 
-          // 2 másodperc után navigálás
+
           setTimeout(() => {
             if (this.authService.loggedinUser) {
               this.router.navigate(['lakes']);
