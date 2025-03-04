@@ -49,4 +49,11 @@ export class LakeDetailsComponent {
   scrollToTop() {
     window.scrollTo({ top: 0 });
   }
+
+  openRoute() {
+    if (this.lake?.coordinates) {
+      const query = encodeURIComponent(this.lake.coordinates);
+      window.open(`https://www.google.com/maps/search/?api=1&query=${query}`);
+    }
+  }
 }
