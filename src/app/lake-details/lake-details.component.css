@@ -1,0 +1,245 @@
+.container {
+  padding: 20px;
+  margin-top: 50px;
+}
+
+.back-button-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.back-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: background-color 0.3s;
+}
+
+.back-button:hover {
+  background-color: #0056b3;
+}
+
+.lake-details-card {
+  background: linear-gradient(to right, #e0f7fa, #b3e5fc);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s;
+  text-align: center;
+}
+
+.lake-details-card:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.lake-image {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.typical-fish-section {
+  margin-top: 20px;
+}
+
+.typical-fish-section h3 {
+  margin-bottom: 10px;
+  color: #0288d1;
+}
+
+h1,h3{
+  margin-bottom: 10px;
+  color: #0288d1;
+}
+
+p {
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.justify-text {
+  text-align: justify;
+}
+
+p strong {
+  color: #0288d1;
+  font-weight: bold;
+}
+
+p em {
+  color: #f57c00;
+  font-style: italic;
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 0.5em;
+}
+
+h3 {
+  font-size: 1.5em;
+  margin-bottom: 0.3em;
+  margin-top: 10px;
+}
+
+.highlight-box {
+  background-color: lightblue;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  text-align: justify;
+}
+
+.fish-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.fish-card {
+  margin: 10px;
+  text-align: center;
+}
+
+.fish-image {
+  width: 150px;
+  height: 100px;
+  border-radius: 5px;
+  border: 1px solid #0288d1;
+  object-fit: cover;
+  margin-bottom: 5px;
+}
+
+.ticket-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+  font-family: 'Arial', sans-serif;
+}
+
+.ticket-table th, .ticket-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.ticket-table th {
+  background-color: #0288d1;
+  color: white;
+  font-weight: bold;
+}
+
+.ticket-table td {
+  background-color: #e1f5fe;
+}
+
+.ticket-table tr:nth-child(even) td {
+  background-color: #b3e5fc;
+}
+
+.ticket-table tr:hover td {
+  background-color: #81d4fa;
+  color: #01579b;
+  cursor: pointer;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  letter-spacing: 0.5px;
+  line-height: 1.6;
+}
+
+h1, h3 {
+  font-family: 'Montserrat', sans-serif;
+  margin-bottom: 10px;
+  color: #0288d1;
+  letter-spacing: 1px;
+}
+
+.scroll-to-top {
+  display: block;
+  margin: 20px 0 0 auto;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
+}
+
+.scroll-to-top:hover {
+  background-color: #0056b3;
+}
+
+.route-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-left: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
+}
+
+.route-button:hover {
+  background-color: #218838;
+}
+
+
+.opening-hours-table {
+  width: 100%;
+  margin-top: 15px;
+  margin: 20px 0;
+  font-family: 'Arial', sans-serif;
+  border-radius: 8px;
+  border: 1px solid black;
+}
+
+.opening-hours-table th, .opening-hours-table td {
+  padding: 12px 20px;
+  text-align: center;
+  font-size: 16px;
+  border: 1px solid #ddd;
+}
+
+.opening-hours-table th {
+  background-color: #0288d1;
+  color: white;
+  font-weight: bold;
+}
+
+.opening-hours-table tr:nth-child(even) td {
+  background-color: #e3f2fd;
+}
+
+.opening-hours-table tr:hover td {
+  background-color: #81d4fa;
+  cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+

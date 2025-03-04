@@ -23,6 +23,10 @@ export class LakeService {
     return this.http.get<ApiResponse>(this.lakesUrl);
   }
 
+  getLakeById(id: string): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${this.lakesUrl}/${id}`);
+  }
+
 
 
 }

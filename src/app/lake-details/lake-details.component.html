@@ -1,1 +1,58 @@
-<p>lake-details works!</p>
+<div class="container">
+  @if (lake) {
+    <div class="lake-details-card">
+      <h1>{{ lake.name }}</h1>
+      @if (lake.img && lake.water_depth && lake.steg_number && lake.description && lake.location) {
+        <img [src]="lake.img" class="lake-image" alt="{{ lake.name }}" />
+        <p class="center-text"><strong>Elhelyezkedés:</strong> {{ lake.location }}</p>
+        <p class="center-text"><strong>Vízmélység:</strong> {{ lake.water_depth }} m</p>
+        <p class="center-text"><strong>Stégek száma:</strong> {{ lake.steg_number }} db</p>
+        <p class="highlight-box justify-text"><strong>Leírás:</strong> {{ lake.description }}</p>
+
+      }
+      <div >
+        <h3>Nyitvatartás</h3>
+        <table class="opening-hours-table">
+          <thead>
+            <tr>
+              <th>Nap</th>
+              <th>Nyitás</th>
+              <th>Zárás</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (day of lake.opening_hours; track $index) {
+              <tr >
+                <td>{{ day.day }}</td>
+                <td>{{ day.open }}</td>
+                <td>{{ day.close }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      @if (lake.day_ticket) {
+        <div>
+          <h3>Napijegyek</h3>
+          <table class="ticket-table">
+            <thead>
+              <tr>
+                <th>Típus</th>
+                <th>Ár (Ft)</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (ticket of lake.day_ticket; track $index) {
+                <tr>
+                  <td>{{ ticket.type }}</td>
+                  <td>{{ ticket.price }} Ft</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+
+        </div>
+      }
+    </div>
+  }
+</div>

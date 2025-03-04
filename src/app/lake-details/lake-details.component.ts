@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Lake } from '../models/lake.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LakeService } from '../services/lake.service';
 
 @Component({
   selector: 'app-lake-details',
@@ -8,5 +11,34 @@ import { Component } from '@angular/core';
   styleUrl: './lake-details.component.css'
 })
 export class LakeDetailsComponent {
+  lake: Lake | undefined;
+  fish: any[] = [];
 
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private lakeService: LakeService
+  ) {}
+
+  ngOnInit(): void {
+    const lakeId = this.route.snapshot.paramMap.get('id');
+    console.log('Tó ID:', lakeId);
+
+    if (!lakeId) {
+      console.error('Hiba: nincs érvényes tó ID az URL-ben!');
+      this.router.navigate(['/lakes']);
+      return;
+    }
+
+    this.lakeService.getLakeById(lakeId).subscribe({
+      next: (response) => {
+        console.log('Backend válasz:', response);
+        this.lake = response.data;
+      },
+      error: (err) => {
+        console.error('Hiba történt:', err);
+        this.router.navigate(['/lakes']);
+      }
+    });
+  }
 }
