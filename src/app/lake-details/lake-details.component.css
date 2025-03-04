@@ -185,22 +185,6 @@ h1, h3 {
   background-color: #0056b3;
 }
 
-.route-button {
-  background-color: #28a745;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 5px;
-  margin-left: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s;
-}
-
-.route-button:hover {
-  background-color: #218838;
-}
 
 
 .opening-hours-table {
@@ -233,6 +217,53 @@ h1, h3 {
   background-color: #81d4fa;
   cursor: pointer;
 }
+
+@media (max-width: 768px) {
+  .lake-details-card {
+    padding: 20px;
+  }
+
+  .back-button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  .ticket-table th, .ticket-table td {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .fish-image {
+    width: 120px;
+    height: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .lake-details-card {
+    padding: 15px;
+  }
+
+  .back-button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  .ticket-table th, .ticket-table td {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .lake-image {
+    max-width: 100%;
+  }
+
+  .fish-image {
+    width: 100px;
+    height: 70px;
+  }
+}
+
 
 
 
