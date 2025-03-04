@@ -1,6 +1,9 @@
 <div class="container">
   @if (lake) {
     <div class="lake-details-card">
+      <div class="back-button-container">
+        <button class="back-button" (click)="goBack()">Vissza</button>
+      </div>
       <h1>{{ lake.name }}</h1>
       @if (lake.img && lake.water_depth && lake.steg_number && lake.description && lake.location) {
         <img [src]="lake.img" class="lake-image" alt="{{ lake.name }}" />
@@ -50,7 +53,7 @@
               }
             </tbody>
           </table>
-
+          <button class="scroll-to-top" (click)="scrollToTop()">Vissza az elejére</button>
         </div>
       }
     </div>

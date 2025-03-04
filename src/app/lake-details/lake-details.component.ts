@@ -41,4 +41,12 @@ export class LakeDetailsComponent {
       }
     });
   }
+
+  goBack() {
+    this.router.navigate(['/lakes']);
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0 });
+  }
 }
