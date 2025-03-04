@@ -3,12 +3,14 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { LakesComponent } from './lakes/lakes.component';
+import { LakeDetailsComponent } from './lake-details/lake-details.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'lakes', component: LakesComponent },
+  { path: 'lake-details/:id', component: LakeDetailsComponent },
 ];
 
 export const appRouter = provideRouter(routes);
