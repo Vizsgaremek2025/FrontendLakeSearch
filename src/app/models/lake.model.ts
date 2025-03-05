@@ -9,12 +9,14 @@ export interface Lake {
     open: string;
     close: string;
   }[];
-
+  typical_fish?: {
+    _id: string;
+    fish: Fish
+  }[];
   county?: {
     _id: string;
     name: string;
   };
-
   water_depth?: number;
   steg_number?: number;
   description?: string;
@@ -22,4 +24,9 @@ export interface Lake {
     type: string;
     price: number;
   }[];
+}
+
+export interface Fish {
+  name: string;
+  img: string;
 }
