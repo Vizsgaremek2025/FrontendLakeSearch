@@ -10,12 +10,12 @@ import { Lake } from '../models/lake.model';
 export class LakeService {
 
   private lakesUrl: string;
-
+  private fishUrl:string;
 
 
   constructor(private http: HttpClient, private configService: ConfigService) {
     this.lakesUrl = `${this.configService.tavakUrl}/tavak`;
-
+    this.fishUrl=`${this.configService.fishUrl}`;
 
   }
 
@@ -25,6 +25,10 @@ export class LakeService {
 
   getLakeById(id: string): Observable<ApiResponse> {
     return this.http.get<ApiResponse>(`${this.lakesUrl}/${id}`);
+  }
+
+  getFishList(): Observable<any[]> {
+    return this.http.get<any[]>(this.fishUrl);
   }
 
 
