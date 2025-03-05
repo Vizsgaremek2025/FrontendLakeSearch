@@ -34,6 +34,17 @@
           </tbody>
         </table>
       </div>
+      <div>
+        <h3>Tipikus halak</h3>
+        <div class="fish-gallery">
+          @for (fishItem of lake.typical_fish; track $index) {
+            <div class="fish-card">
+              <img [src]="fishItem.fish.img" alt="{{ fishItem.fish.name }}" class="fish-image" />
+              <p>{{ fishItem.fish.name }}</p>
+            </div>
+          }
+        </div>
+      </div>
       @if (lake.day_ticket) {
         <div>
           <h3>Napijegyek</h3>
