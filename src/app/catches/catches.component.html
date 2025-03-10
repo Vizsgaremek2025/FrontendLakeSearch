@@ -1,1 +1,38 @@
-<p>catches works!</p>
+<div class="catches-container">
+  <div class="catches-header">
+    <button class="back-button" (click)="goBack()">Vissza</button>
+    <h1>Fogások</h1>
+  </div>
+
+  @if (catches.length > 0) {
+  <div>
+    <div class="catch-table-container">
+      <table class="catch-table">
+        <thead>
+          <tr>
+            <th>Kép</th>
+            <th>Hal neve</th>
+            <th>Méret (cm)</th>
+            <th>Súly (kg)</th>
+            <th>Dátum</th>
+            <th>Felhasználó</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (catchItem of catches; track $index) {
+          <tr>
+            <td><img [src]="catchItem.img || catchItem.fish?.img" alt="{{ catchItem.fish?.name }}" class="catch-image">
+            </td>
+            <td>{{ catchItem.fish?.name }}</td>
+            <td>{{ catchItem.length }}</td>
+            <td>{{ catchItem.weight }}</td>
+            <td class="date">{{ catchItem.date | date:'yyyy. MM. dd.'}}</td>
+            <td>{{ catchItem.user?.name }}</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+  }
+</div>
