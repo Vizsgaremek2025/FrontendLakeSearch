@@ -12,7 +12,7 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'lakes', component: LakesComponent },
   { path: 'lake-details/:id', component: LakeDetailsComponent },
-  { path: 'catches/:lakeId', component: CatchesComponent },
+  { path: 'catches/:lakeId',component: CatchesComponent}
 ];
 
 export const appRouter = provideRouter(routes);

@@ -24,3 +24,9 @@ export interface Catch {
   description: string;
   img?: string;
 }
+
+export interface CatchResponse {
+  success: boolean;
+  data: Catch[];
+}
+
