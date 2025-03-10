@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 export class CatchesComponent {
   lakeId: number | null = null;
   catches: Catch[] = [];
+  selectedCatch: Catch | null = null;
   errorMessage: string = '';
 
   constructor(
@@ -36,6 +37,14 @@ export class CatchesComponent {
         this.errorMessage = 'Hiba történt a fogások lekérésekor.';
       }
     );
+  }
+
+  openModal(catchItem: Catch): void {
+    this.selectedCatch = catchItem;
+  }
+
+  closeModal(): void {
+    this.selectedCatch = null;
   }
 
 
