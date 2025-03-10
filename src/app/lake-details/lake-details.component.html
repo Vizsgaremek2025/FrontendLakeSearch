@@ -3,6 +3,7 @@
     <div class="lake-details-card">
       <div class="back-button-container">
         <button class="back-button" (click)="goBack()">Vissza</button>
+        <button class="catch-button" (click)="navigateToCatches()">Fogások</button>
       </div>
       <h1>{{ lake.name }}</h1>
       @if (lake.img && lake.water_depth && lake.steg_number && lake.description && lake.location) {

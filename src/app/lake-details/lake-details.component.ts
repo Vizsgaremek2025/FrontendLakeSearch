@@ -50,6 +50,14 @@ export class LakeDetailsComponent {
     window.scrollTo({ top: 0 });
   }
 
+  navigateToCatches() {
+    if (this.lake && this.lake._id) {
+      this.router.navigate(['/allcatches', this.lake._id]);
+    } else {
+      console.error('Nincs érvényes tó _id!');
+    }
+  }
+
   openRoute() {
     if (this.lake?.coordinates) {
       const query = encodeURIComponent(this.lake.coordinates);
