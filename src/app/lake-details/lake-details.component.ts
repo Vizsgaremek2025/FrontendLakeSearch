@@ -52,7 +52,7 @@ export class LakeDetailsComponent {
 
   navigateToCatches() {
     if (this.lake && this.lake._id) {
-      this.router.navigate(['/allcatches', this.lake._id]);
+      this.router.navigate(['/catches', this.lake._id]);
     } else {
       console.error('Nincs érvényes tó _id!');
     }
