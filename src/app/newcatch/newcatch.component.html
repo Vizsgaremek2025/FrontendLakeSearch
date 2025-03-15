@@ -1,1 +1,78 @@
-<p>newcatch works!</p>
+<div class="lake-details">
+  <h2>Új fogás felvétele</h2>
+  <div class="catch-log">
+    <div class="form-group">
+      <label for="lake">Válassz tavat:</label>
+      <select id="lake" [(ngModel)]="selectedLake" class="form-control">
+        @for (lake of availableLakes; track $index) {
+          <option [value]="lake._id">{{ lake.name }}</option>
+        }
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="fish">Válassz halat:</label>
+      <select id="fish" [(ngModel)]="selectedFish" class="form-control">
+        @for (fish of availableFish; track $index) {
+          <option  [value]="fish._id">{{ fish.name }}</option>
+        }
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="weight">Súly (kg):</label>
+      <input id="weight" type="number" [(ngModel)]="fishWeight" placeholder="Add meg a súlyt kg-ban" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="length">Hossz (cm):</label>
+      <input id="length" type="number" [(ngModel)]="fishLength" placeholder="Add meg a hosszát cm-ben" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="imageUpload">Kép feltöltése:</label>
+      <input id="imageUpload" type="file" (change)="onFileSelected($event)" class="form-control" accept="image/*">
+    </div>
+    <div class="form-group">
+      <label for="date">Dátum:</label>
+      <input id="date" type="date" [max]="maxDate" [(ngModel)]="catchDate" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="method">Válassz módszert:</label>
+      <select id="method" [(ngModel)]="selectedMethod" class="form-control">
+        @for (method of availableMethod; track $index) {
+          <option  [value]="method._id">{{ method.name }}</option>
+        }
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="bait">Csali:</label>
+      <input id="bait" type="text" [(ngModel)]="bait" placeholder="Add meg a csalit" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="description">Leírás:</label>
+      <textarea id="description" [(ngModel)]="description" placeholder="Add meg a fogás leírását" class="form-control"></textarea>
+    </div>
+    <div class="form-group checkbox-container">
+      <input id="takeCatch" type="checkbox" [(ngModel)]="takeCatch" class="form-check-input">
+      <label for="takeCatch" class="form-check-label">Elviszem a fogást</label>
+    </div>
+
+    <button (click)="saveCatch()" class="save-button">Mentés</button>
+  </div>
+
+   @if (errorMessage) {
+    <div  class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+   }
+</div>
+
+
+<div id="successModal" class="modal" [ngClass]="{'show': isModalOpen}">
+  <div class="modal-content">
+    <div class="icon-container">
+      <i class="fas fa-check-circle" style="font-size: 50px; color: green;"></i>
+    </div>
+    <p>A fogás sikeresen mentve!</p>
+    <button (click)="closeModal()">OK</button>
+  </div>
+</div>
+
+
