@@ -5,6 +5,7 @@ import { RegisterComponent } from './register/register.component';
 import { LakesComponent } from './lakes/lakes.component';
 import { LakeDetailsComponent } from './lake-details/lake-details.component';
 import { CatchesComponent } from './catches/catches.component';
+import { NewcatchComponent } from './newcatch/newcatch.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -12,7 +13,8 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'lakes', component: LakesComponent },
   { path: 'lake-details/:id', component: LakeDetailsComponent },
-  { path: 'catches/:lakeId',component: CatchesComponent}
+  { path: 'catches/:lakeId',component: CatchesComponent},
+  { path: 'newcatch',component: NewcatchComponent}
 ];
 
 export const appRouter = provideRouter(routes);
