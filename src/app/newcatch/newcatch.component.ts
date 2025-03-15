@@ -42,6 +42,11 @@ export class NewcatchComponent {
     this.getMethod();
     this.getUser();
 
+    const today = new Date();
+    const day = ('0' + today.getDate()).slice(-2);
+    const month = ('0' + (today.getMonth() + 1)).slice(-2);
+    const year = today.getFullYear();
+    this.maxDate = `${year}-${month}-${day}`;
 
   }
 
