@@ -158,3 +158,42 @@ h2 {
   font-size: 30px;
   color: #444;
 }
+
+@media (max-width: 768px) {
+  .modal-content {
+    width: 75%;
+  }
+
+  .catch-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    width: 90%;
+  }
+
+  .catch-card {
+    height: auto;
+  }
+
+  .catch-card img {
+    height: auto;
+  }
+
+  .catch-details p {
+    font-size: 14px;
+  }
+
+  .buttons {
+    flex-direction: column;
+  }
+}
+
