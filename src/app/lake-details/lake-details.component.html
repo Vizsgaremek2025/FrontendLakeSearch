@@ -12,6 +12,12 @@
         <p class="center-text"><strong>Vízmélység:</strong> {{ lake.water_depth }} m</p>
         <p class="center-text"><strong>Stégek száma:</strong> {{ lake.steg_number }} db</p>
         <p class="highlight-box justify-text"><strong>Leírás:</strong> {{ lake.description }}</p>
+        <div class="margin">
+          <p>
+            <strong >További elérhetőségek: </strong>
+            <a href="{{ lake.link }}" target="_blank" class="styled-link link-box">{{ lake.link }}</a>
+          </p>
+        </div>
         <button class="route-button" (click)="openRoute()">Elhelyezkedés</button>
       }
       <div >
