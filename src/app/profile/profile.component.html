@@ -1,1 +1,62 @@
-<p>profile works!</p>
+<div class="profile-container">
+  <h2>Profil</h2>
+
+  <h3>Fogásaid:</h3>
+  @if (userCatches.length === 0) {
+    <div>
+      <p>Még nem mentettél fogásokat.</p>
+    </div>
+  }
+  <div class="catch-cards">
+    @for (catchEntry of userCatches; track $index) {
+      <div class="catch-card">
+        <img [src]="catchEntry.img" alt="Hal képe" class="catch-img" />
+        <div class="catch-details">
+          <p><strong>Tó:</strong> {{ catchEntry.lake.name }}</p>
+          <p><strong>Hal:</strong> {{ catchEntry.fish.name }}</p>
+          <p><strong>Dátum:</strong> {{ catchEntry.date | date:'yyyy-MM-dd' }}</p>
+        </div>
+        <div class="buttons">
+          <button (click)="editCatch(catchEntry)">Szerkesztés</button>
+          <button (click)="confirmDelete(catchEntry)">Törlés</button>
+        </div>
+      </div>
+    }
+  </div>
+  @if (showModal) {
+    <div class="modal">
+      <div class="modal-content">
+        <span class="close" (click)="closeModal()">&times;</span>
+        <h3>Fogás Szerkesztése</h3>
+
+        <form (ngSubmit)="saveCatch()">
+          <label for="fishName">Hal neve:</label>
+          <input type="text" id="fishName" [(ngModel)]="selectedCatch.fish.name" name="fishName" required />
+
+          <label for="weight">Súly:</label>
+          <input type="number" id="weight" [(ngModel)]="selectedCatch.weight" name="weight" required />
+
+          <label for="bait">Csali:</label>
+          <input type="text" id="bait" [(ngModel)]="selectedCatch.bait" name="bait" required />
+
+          <label for="description">Leírás:</label>
+          <textarea id="description" [(ngModel)]="selectedCatch.description" name="description" required></textarea>
+
+          <button type="submit">Mentés</button>
+        </form>
+      </div>
+    </div>
+  }
+  @if (showDeleteModal) {
+    <div class="modal">
+      <div class="modal-content">
+        <span class="close" (click)="closeDeleteModal()">&times;</span>
+        <h3>Biztosan törölni szeretnéd?</h3>
+        <div class="modal-buttons">
+          <button (click)="deleteConfirmed()" class="confirm-btn">Igen, törlöm</button>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+
