@@ -22,7 +22,7 @@ h1 {
   width: 100%;
   flex-wrap: wrap;
   padding: 0 20px;
-  margin-right: 32px;
+  margin-left: 20px;
 }
 
 
@@ -30,7 +30,7 @@ h1 {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-left: 14px;
+  margin-left: -45px;
 }
 
 .filter-container input[type="text"] {
