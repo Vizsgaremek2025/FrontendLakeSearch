@@ -7,6 +7,7 @@ import { LakeDetailsComponent } from './lake-details/lake-details.component';
 import { CatchesComponent } from './catches/catches.component';
 import { NewcatchComponent } from './newcatch/newcatch.component';
 import { ProfileComponent } from './profile/profile.component';
+import { UserCatchesComponent } from './user-catches/user-catches.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -16,7 +17,8 @@ export const routes: Routes = [
   { path: 'lake-details/:id', component: LakeDetailsComponent },
   { path: 'catches/:lakeId',component: CatchesComponent},
   { path: 'newcatch',component: NewcatchComponent},
-  { path: 'profile',component: ProfileComponent}
+  { path: 'profile',component: ProfileComponent},
+  { path: 'user-catches',component: UserCatchesComponent}
 ];
 
 export const appRouter = provideRouter(routes);
