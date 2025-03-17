@@ -1,43 +1,48 @@
 <div class="profile-card-title">
   <h3>Felhasználói adatok</h3>
 </div>
-
-<div class="profile-card" *ngIf="user">
-  <form (ngSubmit)="onSubmit()">
-    <div>
-      <label>Név:</label>
-      <input type="text" [(ngModel)]="name" name="name" [readonly]="!editMode">
-    </div>
-    <div>
-      <label>Email:</label>
-      <input type="email" [(ngModel)]="email" name="email" [readonly]="!editMode">
-    </div>
-
-    <div *ngIf="!editMode">
-      <button type="button" class="edit-button" (click)="enableEdit()">Szerkesztés</button>
-    </div>
-  </form>
-</div>
-
-
-<div class="modal" *ngIf="editMode">
-  <div class="modal-content">
-    <h2>Szerkesztés</h2>
+@if (user) {
+  <div class="profile-card">
     <form (ngSubmit)="onSubmit()">
       <div>
         <label>Név:</label>
-        <input type="text" [(ngModel)]="name" name="name">
+        <input type="text" [(ngModel)]="name" name="name" [readonly]="!editMode">
       </div>
       <div>
         <label>Email:</label>
-        <input type="email" [(ngModel)]="email" name="email">
+        <input type="email" [(ngModel)]="email" name="email" [readonly]="!editMode">
       </div>
-      <div class="modal-buttons">
-        <button type="submit">Mentés</button>
-        <button type="button" (click)="cancelEdit()">Mégse</button>
-      </div>
+      @if (!editMode) {
+        <div >
+          <button type="button" class="edit-button" (click)="enableEdit()">Szerkesztés</button>
+        </div>
+      }
     </form>
   </div>
-</div>
+}
+
+
+@if (editMode) {
+  <div class="modal" >
+    <div class="modal-content">
+      <h2>Szerkesztés</h2>
+      <form (ngSubmit)="onSubmit()">
+        <div>
+          <label>Név:</label>
+          <input type="text" [(ngModel)]="name" name="name">
+        </div>
+        <div>
+          <label>Email:</label>
+          <input type="email" [(ngModel)]="email" name="email">
+        </div>
+        <div class="modal-buttons">
+          <button type="submit">Mentés</button>
+          <button type="button" (click)="cancelEdit()">Mégse</button>
+        </div>
+      </form>
+    </div>
+  </div>
+}
+
 
 
