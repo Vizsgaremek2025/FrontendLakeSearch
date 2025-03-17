@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { UserModel } from '../models/UserModel';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-catches',
@@ -12,55 +13,94 @@ import { UserModel } from '../models/UserModel';
   styleUrl: './user-catches.component.css'
 })
 export class UserCatchesComponent {
-  user: UserModel | null = null;
-  editMode = false;
 
-  name = '';
-  email = '';
+  userId: string = '';
+  userCatches: any[] = [];
+  message: string = '';
+  showModal: boolean = false;
+  showDeleteModal: boolean = false;
+  selectedCatch: any = null;
 
-  constructor(private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.user = this.authService.getLoggedInUser();
-    if (this.user) {
-      this.name = this.user.name;
-      this.email = this.user.email;
+    this.getUser();
+    this.getUserCatches();
+  }
+
+  getUser() {
+    const loggedInUser = this.authService.getLoggedInUser();
+    if (loggedInUser && loggedInUser._id) {
+      this.userId = loggedInUser._id;
+    } else {
+      alert('Hiba: Nem található bejelentkezett felhasználó!');
     }
   }
 
-  enableEdit() {
-    this.editMode = true;
-  }
-
-  cancelEdit() {
-    if (this.user) {
-      this.name = this.user.name;
-      this.email = this.user.email;
-    }
-    this.editMode = false;
-  }
-
-  openEditModal() {
-    this.editMode = true;
-    if (this.user) {
-      this.name = this.user.name;
-      this.email = this.user.email;
-    }
-  }
-
-  onSubmit() {
-    this.authService.updateUser({ name: this.name, email: this.email }).subscribe({
-      next: () => {
-        if (this.user) {
-          this.user.name = this.name;
-          this.user.email = this.email;
-          localStorage.setItem('user', JSON.stringify(this.user));
-          this.authService['loggedInUserSubject'].next(this.user);
+  getUserCatches() {
+    if (this.userId) {
+      this.http.get<any>(`http://localhost:3000/catch/user/${this.userId}`).subscribe({
+        next: (response) => {
+          this.userCatches = response.data;
+        },
+        error: (error) => {
+          console.error('Hiba történt a fogások betöltésekor:', error);
+          alert('Hiba történt a fogások betöltésekor');
         }
-        this.editMode = false;
-      },
-      error: (err) => {
-      }
-    });
+      });
+    }
+  }
+
+
+  editCatch(catchItem: any) {
+    this.selectedCatch = catchItem;
+    this.showModal = true;
+  }
+
+  saveCatch() {
+    if (this.selectedCatch) {
+      this.http.put<any>(`http://localhost:3000/catch/${this.selectedCatch._id}`, this.selectedCatch).subscribe({
+        next: (response) => {
+          this.message = 'Fogás sikeresen mentve!';
+          this.getUserCatches();
+          this.closeModal();
+        },
+        error: (error) => {
+          console.error('Hiba történt a fogás mentésekor:', error);
+          this.message = 'Hiba történt a fogás mentésekor';
+        }
+      });
+    }
+  }
+
+  closeModal() {
+    this.showModal = false;
+    this.selectedCatch = null;
+  }
+
+  confirmDelete(catchItem: any) {
+    this.selectedCatch = catchItem;
+    this.showDeleteModal = true;
+  }
+
+  deleteConfirmed() {
+    if (this.selectedCatch) {
+      this.http.delete<any>(`http://localhost:3000/catch/${this.selectedCatch._id}`).subscribe({
+        next: (response) => {
+          this.message = 'Fogás sikeresen törölve!';
+          this.getUserCatches();
+          this.closeDeleteModal();
+        },
+        error: (error) => {
+          console.error('Hiba történt a fogás törlésénél:', error);
+          this.message = 'Hiba történt a fogás törlésénél';
+        }
+      });
+    }
+  }
+
+  closeDeleteModal() {
+    this.showDeleteModal = false;
+    this.selectedCatch = null;
   }
 }
