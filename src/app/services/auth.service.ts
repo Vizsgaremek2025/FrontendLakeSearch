@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { UserModel } from '../models/UserModel';
 import { ConfigService } from './config.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +27,15 @@ export class AuthService {
 
   register(user: any): Observable<any> {
     return this.http.post(`${this.configService.apiUrl}/register`, user);
+  }
+
+  updateUser(details: { name: string; email: string }): Observable<any> {
+    const user = this.getLoggedInUser();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${user?.token}`
+    });
+
+    return this.http.put<any>(`${this.configService.apiUrl}/updatedetails`, details, { headers });
   }
 
   logout() {
