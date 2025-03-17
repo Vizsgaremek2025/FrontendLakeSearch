@@ -155,3 +155,54 @@ button[type="button"]:not(.edit-button):hover {
   border-color: #007bff;
   box-shadow: 0 0 6px rgba(0, 123, 255, 0.25);
 }
+
+@media (max-width: 768px) {
+
+  .profile-card,
+  .modal-content {
+    width: 90%;
+    padding: 20px;
+  }
+
+
+  .profile-card-title {
+    font-size: 16px;
+    margin-top: 100px;
+  }
+
+
+  .profile-card input,
+  .modal-content form input {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+
+  button {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+
+  .modal-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .profile-card-title {
+    font-size: 14px;
+    margin-top: 70px;
+  }
+
+  .modal-content {
+    width: 95%;
+  }
+
+  button {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+}
