@@ -8,7 +8,7 @@ import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-newcatch',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './newcatch.component.html',
   styleUrl: './newcatch.component.css'
 })
@@ -34,7 +34,7 @@ export class NewcatchComponent {
   takeCatch: boolean = false;
   errorMessage: string = '';
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   ngOnInit() {
     this.getLakes();
@@ -131,15 +131,33 @@ export class NewcatchComponent {
         console.log('Fogás sikeresen mentve!', response);
         this.isModalOpen = true;
         this.errorMessage = '';
+        this.resetForm();
       },
       error: (error) => {
         console.error('Hiba történt a fogás mentésekor:', error);
         this.errorMessage = 'Hiba történt a fogás mentésekor';
       }
     });
-
   }
 
+  resetForm() {
+    this.selectedFish = '';
+    this.fishWeight = null;
+    this.fishLength = null;
+    this.catchDate = '';
+    this.selectedMethod = '';
+    this.bait = '';
+    this.description = '';
+    this.selectedLake = '';
+    this.image = null;
+    this.takeCatch = false;
+
+
+    const fileInput = document.getElementById('imageUpload') as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = '';
+    }
+  }
   openModal() {
     this.isModalOpen = true;
   }
