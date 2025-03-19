@@ -2,11 +2,17 @@
   <h2>Profil</h2>
 
   <h3>Fogásaid:</h3>
-  @if (userCatches.length === 0) {
-    <div>
-      <p>Még nem mentettél fogásokat.</p>
+  @if (showEmptyModal) {
+    <div class="modal">
+      <div class="modal-content">
+        <span class="close" (click)="closeEmptyModal()">&times;</span>
+        <h3>Nincsenek fogásaid</h3>
+        <p>Úgy tűnik, még nem mentettél egyetlen fogást sem.</p>
+        <button (click)="navigateToCatchCreation()">Fogás hozzáadása</button>
+      </div>
     </div>
   }
+
   <div class="catch-cards">
     @for (catchEntry of userCatches; track $index) {
       <div class="catch-card">

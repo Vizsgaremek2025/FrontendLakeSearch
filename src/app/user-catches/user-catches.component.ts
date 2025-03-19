@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { UserModel } from '../models/UserModel';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-catches',
@@ -19,9 +20,10 @@ export class UserCatchesComponent {
   message: string = '';
   showModal: boolean = false;
   showDeleteModal: boolean = false;
+  showEmptyModal: boolean = false;
   selectedCatch: any = null;
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService ,private router: Router) {}
 
   ngOnInit(): void {
     this.getUser();
@@ -42,6 +44,7 @@ export class UserCatchesComponent {
       this.http.get<any>(`http://localhost:3000/catch/user/${this.userId}`).subscribe({
         next: (response) => {
           this.userCatches = response.data;
+          this.showEmptyModal = this.userCatches.length === 0;
         },
         error: (error) => {
           console.error('Hiba történt a fogások betöltésekor:', error);
@@ -49,6 +52,14 @@ export class UserCatchesComponent {
         }
       });
     }
+  }
+
+  navigateToCatchCreation() {
+    this.router.navigate(['/newcatch']);
+  }
+
+  closeEmptyModal() {
+    this.showEmptyModal = false;
   }
 
 
