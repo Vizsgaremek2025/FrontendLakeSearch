@@ -21,13 +21,14 @@
         <tbody>
           @for (catchItem of catches; track $index) {
           <tr (click)="openModal(catchItem)">
-            <td><img [src]="catchItem.img || catchItem.fish?.img" alt="{{ catchItem.fish?.name }}" class="catch-image">
+            <td data-label="Kép" style="flex-direction: column; align-items: flex-start;">
+              <img [src]="catchItem.img || catchItem.fish?.img" alt="{{ catchItem.fish?.name }}" class="catch-image">
             </td>
-            <td>{{ catchItem.fish?.name }}</td>
-            <td>{{ catchItem.length }}</td>
-            <td>{{ catchItem.weight }}</td>
-            <td class="date">{{ catchItem.date | date:'yyyy. MM. dd.'}}</td>
-            <td>{{ catchItem.user?.name }}</td>
+            <td data-label="Hal neve">{{ catchItem.fish?.name }}</td>
+            <td data-label="Méret (cm)">{{ catchItem.length }}</td>
+            <td data-label="Súly (kg)">{{ catchItem.weight }}</td>
+            <td data-label="Dátum">{{ catchItem.date | date:'yyyy. MM. dd.'}}</td>
+            <td data-label="Felhasználó">{{ catchItem.user?.name }}</td>
           </tr>
           }
         </tbody>

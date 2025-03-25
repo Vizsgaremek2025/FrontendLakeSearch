@@ -135,64 +135,130 @@ h1 {
 }
 
 @media (max-width: 768px) {
-
-  .catch-table {
-    width: 90%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+  .catch-table thead {
+    display: none;
   }
 
-  .catch-table th, .catch-table td {
-    font-size: 13px;
-    padding: 8px;
+  .catch-table tr {
+    display: block;
+    background: #ffffff;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   }
 
-  .catch-image {
-    width: 60px;
-    height: 40px;
-  }
+  .catch-table{
+    border: none;
 
-  h1 {
-    font-size: 1.4em;
   }
 
   .catch-table td {
-    padding: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border: none;
+    background: none;
+    border-bottom: 1px solid #eee;
   }
 
-  .back-button {
-    padding: 6px 12px;
+  .catch-table td:last-child {
+    border-bottom: none;
   }
-}
 
-@media (max-width: 480px) {
+  .catch-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #0288d1;
+    font-size: 14px;
+    flex: 1;
+    text-align: left;
+  }
 
-  .catch-table th, .catch-table td {
-    font-size: 12px;
-    padding: 6px;
+  .catch-table td span {
+    flex: 1;
+    text-align: right;
+    font-weight: bold;
+    color: #333;
+    font-size: 15px;
   }
 
   .catch-image {
-    width: 50px;
-    height: 35px;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+}
+
+
+
+
+
+@media (max-width: 480px) {
+  .catch-table tr {
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    background: #ffffff;
   }
 
-  .back-button {
-    font-size: 14px;
-    padding: 5px 10px;
+  .catch-table td {
+    border-bottom: 1px solid #eee;
+    background: none;
   }
 
   .catch-table {
+    border: none;
+  }
+
+  .catch-table td:last-child {
+    border-bottom: none;
+  }
+
+  .catch-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #0288d1;
     font-size: 14px;
+    flex: 1.2;
+    text-align: left;
   }
 
-  h1 {
-    font-size: 1.2em;
+  .catch-table td span {
+    flex: 1;
+    text-align: right;
+    font-weight: 500;
+    color: #333;
+    font-size: 15px;
   }
 
+  .catch-image {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    object-fit: cover;
+  }
 
-  .catch-table th, .catch-table td {
-    padding: 8px 5px;
+  .catch-table td:first-child {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-bottom: 10px;
+  }
+
+  .catch-table td:first-child::before {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .catch-table td:first-child .catch-image {
+    max-width: 100%;
+    height: auto;
   }
 }
 
