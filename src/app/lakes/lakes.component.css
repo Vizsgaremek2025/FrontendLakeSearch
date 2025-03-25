@@ -49,21 +49,6 @@ h1 {
   margin-left: 20px;
 }
 
-/* Gomb stílus */
-.filter-button {
-  padding: 10px;
-  font-size: 13px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-
-}
-
-.filter-button:hover {
-  background-color: #0056b3;
-}
 
 select#county {
   width: 280px;
@@ -173,17 +158,18 @@ select#county:focus {
     padding: 0 10px;
   }
 
-  .search-container {
-    width: 100%;
-    margin-left: 0;
-  }
-
-  .filter-container input[type="text"],
-  .filter-container select#county,
-  .filter-button {
+  .search-container,
+  select#county {
     width: 100%;
     max-width: 300px;
     margin-left: 0;
+    margin-bottom: 10px;
+  }
+
+  /* Külön a gomb */
+  .filter-button {
+    width: 100%;
+    max-width: 300px;
     margin-bottom: 10px;
   }
 
@@ -191,6 +177,26 @@ select#county:focus {
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 425px) {
+  .filter-container {
+    padding: 0 5px;
+  }
+
+  .search-container,
+  select#county {
+    max-width: 260px;
+  }
+
+  .filter-button {
+    max-width: 260px;
+  }
+
+  .lake-list {
+    grid-template-columns: 1fr;
+  }
+}
+
 
 @media (min-width: 768px) and (max-width: 1024px) {
   .lake-list {
