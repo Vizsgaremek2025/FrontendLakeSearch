@@ -33,6 +33,9 @@ export class NewcatchComponent {
   image: File | null = null;
   takeCatch: boolean = false;
   errorMessage: string = '';
+  errorMessages:string[]=[]
+  generalMaxWeight: number = 50;
+  generalMaxLength: number = 150;
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
@@ -105,10 +108,18 @@ export class NewcatchComponent {
 
 
   saveCatch() {
-    if (!this.selectedFish || !this.fishWeight || !this.fishLength || !this.catchDate || !this.selectedMethod || !this.bait || !this.description || !this.selectedLake) {
-      this.errorMessage = 'Kérlek, tölts ki minden mezőt!';
+    this.errorMessages = [];
+
+    if (this.fishWeight! > this.generalMaxWeight || this.fishLength! > this.generalMaxLength) {
+      this.errorMessages.push(`A megadott súly vagy hossz irreális érték (max ${this.generalMaxWeight} kg és ${this.generalMaxLength} cm)!`);
       return;
     }
+
+    if (!this.selectedFish || !this.fishWeight || !this.fishLength || !this.catchDate || !this.selectedMethod || !this.bait || !this.description || !this.selectedLake) {
+      this.errorMessages.push('Kérlek, tölts ki minden mezőt!');
+      return;
+    }
+
 
     const formData = new FormData();
     formData.append('fish', this.selectedFish);
@@ -120,7 +131,10 @@ export class NewcatchComponent {
     formData.append('bait', this.bait);
     formData.append('description', this.description);
     formData.append('user', this.userId);
-    formData.append('takeCatch', String(this.takeCatch));
+    formData.append('catchandrelease', this.takeCatch ? 'false' : 'true');
+
+
+
 
     if (this.image) {
       formData.append('img', this.image, this.image.name);
@@ -130,15 +144,21 @@ export class NewcatchComponent {
       next: (response) => {
         console.log('Fogás sikeresen mentve!', response);
         this.isModalOpen = true;
-        this.errorMessage = '';
+        this.errorMessages = [];
         this.resetForm();
       },
       error: (error) => {
         console.error('Hiba történt a fogás mentésekor:', error);
-        this.errorMessage = 'Hiba történt a fogás mentésekor';
+
+        if (error.error.message) {
+          this.errorMessages.push(error.error.message);
+        } else {
+          this.errorMessages.push('Hiba történt a fogás mentésekor.');
+        }
       }
     });
   }
+
 
   resetForm() {
     this.selectedFish = '';

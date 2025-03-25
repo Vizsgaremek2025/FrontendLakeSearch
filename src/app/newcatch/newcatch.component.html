@@ -19,11 +19,11 @@
     </div>
     <div class="form-group">
       <label for="weight">Súly (kg):</label>
-      <input id="weight" type="number" [(ngModel)]="fishWeight" placeholder="Add meg a súlyt kg-ban" class="form-control">
+      <input id="weight" type="number" [(ngModel)]="fishWeight"  [min]="0.1" [max]="generalMaxWeight" placeholder="Add meg a súlyt kg-ban" class="form-control">
     </div>
     <div class="form-group">
       <label for="length">Hossz (cm):</label>
-      <input id="length" type="number" [(ngModel)]="fishLength" placeholder="Add meg a hosszát cm-ben" class="form-control">
+      <input id="length" type="number" [(ngModel)]="fishLength" [min]="1" [max]="generalMaxLength" placeholder="Add meg a hosszát cm-ben" class="form-control">
     </div>
     <div class="form-group">
       <label for="imageUpload">Kép feltöltése:</label>
@@ -56,12 +56,11 @@
 
     <button (click)="saveCatch()" class="save-button">Mentés</button>
   </div>
-
-   @if (errorMessage) {
-    <div  class="alert alert-danger">
-      {{ errorMessage }}
-    </div>
-   }
+    @for (error of errorMessages; track $index) {
+      <div  class="alert alert-danger">
+        {{ error }}
+      </div>
+    }
 </div>
 
 
