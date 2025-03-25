@@ -2,17 +2,15 @@
   <h1>Tavak listája</h1>
   <div class="filter-container">
     <div class="search-container">
-      <input type="text" placeholder="Szűrés név alapján" [(ngModel)]="searchText" />
-      <button class="filter-button" (click)="applyFilter()">Keresés</button>
+      <input type="text" placeholder="Szűrés név alapján" [(ngModel)]="searchText" (ngModelChange)="applyFilter()"/>
     </div>
-    <select id="county" [(ngModel)]="selectedCounty" (change)="filterLakes()">
+    <select id="county" [(ngModel)]="selectedCounty" (change)="applyFilter()">
       <option value="">Válassz egy megyét:</option>
       @for (county of counties; track $index) {
       <option [value]="county._id">{{ county.name }}</option>
       }
     </select>
   </div>
-
 
   <div class="lake-list">
     @for (lake of filteredLakes; track $index) {
@@ -23,8 +21,9 @@
         <p><strong>Elhelyezkedés: </strong> {{ lake.location }}</p>
         <p><strong>Vízmélység: </strong>{{ lake.water_depth }} méter</p>
         <p><strong>Stégek száma: </strong>{{ lake.steg_number }} db</p>
-        <button class="details-button" (click)="viewDetails(lake?._id)"><i class="fas fa-info-circle"></i>
-          Részletek</button>
+        <button class="details-button" (click)="viewDetails(lake?._id)">
+          <i class="fas fa-info-circle"></i> Részletek
+        </button>
       </div>
     </div>
     }

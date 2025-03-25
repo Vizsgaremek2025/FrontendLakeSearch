@@ -48,8 +48,6 @@ export class LakesComponent {
 
 
   filterLakes() {
-    console.log('Szűrési feltételek:', { searchText: this.searchText, selectedCounty: this.selectedCounty });
-
     this.filteredLakes = this.lakes.filter(lake => {
       const matchesCounty = this.selectedCounty ? lake.county?._id === this.selectedCounty : true;
       const matchesSearch = lake.name.toLowerCase().includes(this.searchText.toLowerCase());
@@ -87,15 +85,16 @@ export class LakesComponent {
   }
 
   get disablePagination(): boolean {
-    return this.selectedCounty !== '' && this.totalLakes <= this.itemsPerPage;
+    return this.searchText.trim() !== '' || this.selectedCounty !== '';
   }
+
 
 
 
   loadLakes() {
     this.countyService.getCounties().subscribe({
       next: (response) => {
-        console.log('📥 Megyék és tavak:', response.data);
+        console.log(' Megyék és tavak:', response.data);
 
         this.lakes = [];
         for (let county of response.data) {
@@ -112,21 +111,32 @@ export class LakesComponent {
         this.totalPages = Math.ceil(this.lakes.length / this.limit);
         this.applyPagination();
 
-        console.log('🌊 Összes tó:', this.lakes);
+        console.log(' Összes tó:', this.lakes);
       },
       error: (error) => {
-        console.error('❌ Hiba történt a tavak lekérésekor:', error);
+        console.error(' Hiba történt a tavak lekérésekor:', error);
       }
     });
   }
 
   applyFilter() {
-    this.filteredLakes = this.lakes.filter(lake =>
-      lake.name.toLowerCase().includes(this.searchText.toLowerCase())
+    let filtered = [...this.lakes];
 
-    );
+    if (this.selectedCounty) {
+      filtered = filtered.filter(lake => lake.county?._id === this.selectedCounty);
+    }
+
+    if (this.searchText.trim() !== '') {
+      filtered = filtered.filter(lake =>
+        lake.name.toLowerCase().includes(this.searchText.toLowerCase())
+      );
+    }
+    this.filteredLakes = filtered;
+
+    if (this.searchText.trim() === '' && this.selectedCounty === '') {
+      this.applyPagination();
+    }
   }
-
 
   applyPagination() {
     const start = (this.currentPage - 1) * this.limit;
@@ -134,20 +144,13 @@ export class LakesComponent {
     this.filteredLakes = this.lakes.slice(start, end);
   }
 
-
-
-
-
-
-
-
   viewDetails(lakeId: string | undefined) {
     if (!lakeId) {
-      console.error('🚨 Hiba: A tó ID undefined vagy üres!', lakeId);
+      console.error(' Hiba: A tó ID undefined vagy üres!', lakeId);
       return;
     }
 
-    console.log('🔍 Navigálás tó részleteihez:', lakeId);
+    console.log(' Navigálás tó részleteihez:', lakeId);
     this.router.navigate(['/lake-details', lakeId]);
   }
 
