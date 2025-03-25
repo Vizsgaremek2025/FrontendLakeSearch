@@ -37,13 +37,26 @@
 
         <form (ngSubmit)="saveCatch()">
           <label for="fishName">Hal neve:</label>
-          <input type="text" id="fishName" [(ngModel)]="selectedCatch.fish.name" name="fishName" required />
-
+          <select id="fish" [(ngModel)]="selectedFish" name="fish" class="form-control">
+            @for (fish of availableFish; track $index) {
+              <option [value]="fish._id">{{ fish.name }}</option>
+            }
+          </select>
           <label for="weight">Súly:</label>
           <input type="number" id="weight" [(ngModel)]="selectedCatch.weight" name="weight" required />
 
+          <label for="weight">Hossz (cm):</label>
+          <input type="number" id="length" [(ngModel)]="selectedCatch.length" name="length" required />
+
           <label for="bait">Csali:</label>
           <input type="text" id="bait" [(ngModel)]="selectedCatch.bait" name="bait" required />
+
+          <label for="methodName">Módszer:</label>
+          <select id="method" [(ngModel)]="selectedMethod" name="method" class="form-control">
+            @for (method of availableMethod; track $index) {
+              <option [value]="method._id">{{ method.name }}</option>
+            }
+          </select>
 
           <label for="description">Leírás:</label>
           <textarea id="description" [(ngModel)]="selectedCatch.description" name="description" required></textarea>

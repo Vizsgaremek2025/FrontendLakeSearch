@@ -22,12 +22,18 @@ export class UserCatchesComponent {
   showDeleteModal: boolean = false;
   showEmptyModal: boolean = false;
   selectedCatch: any = null;
+  availableFish: any[] = [];
+  selectedFish: string = '';
+  selectedMethod: string = '';
+  availableMethod: any[] = [];
 
   constructor(private http: HttpClient, private authService: AuthService ,private router: Router) {}
 
   ngOnInit(): void {
     this.getUser();
     this.getUserCatches();
+    this.getAvailableFish();
+    this.getAvailableMethod();
   }
 
   getUser() {
@@ -54,6 +60,32 @@ export class UserCatchesComponent {
     }
   }
 
+  getAvailableFish() {
+    this.http.get<any>('http://localhost:3000/fish').subscribe({
+      next: (response) => {
+        this.availableFish = response.data;
+      },
+      error: (error) => {
+        console.error('Hiba történt a halak betöltésekor:', error);
+        alert('Hiba történt a halak betöltésekor');
+      },
+    });
+  }
+
+
+  getAvailableMethod() {
+    this.http.get<any>('http://localhost:3000/method').subscribe({
+      next: (response) => {
+        this.availableMethod = response.data;
+      },
+      error: (error) => {
+        console.error('Hiba történt a módszerek betöltésekor:', error);
+        alert('Hiba történt a módszerek betöltésekor');
+      }
+    });
+  }
+
+
   navigateToCatchCreation() {
     this.router.navigate(['/newcatch']);
   }
@@ -65,11 +97,15 @@ export class UserCatchesComponent {
 
   editCatch(catchItem: any) {
     this.selectedCatch = catchItem;
+    this.selectedFish = catchItem.fish._id;
+    this.selectedMethod = catchItem.method._id;
     this.showModal = true;
   }
 
   saveCatch() {
     if (this.selectedCatch) {
+      this.selectedCatch.fish = this.selectedFish;
+      this.selectedCatch.method = this.selectedMethod;
       this.http.put<any>(`http://localhost:3000/catch/${this.selectedCatch._id}`, this.selectedCatch).subscribe({
         next: (response) => {
           this.message = 'Fogás sikeresen mentve!';
