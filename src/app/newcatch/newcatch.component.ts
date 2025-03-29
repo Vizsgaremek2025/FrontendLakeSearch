@@ -120,6 +120,18 @@ export class NewcatchComponent {
       return;
     }
 
+    if (this.takeCatch) {
+      const selectedFishData = this.availableFish.find(fish => fish._id === this.selectedFish);
+      if (selectedFishData && selectedFishData.curfew?.start && selectedFishData.curfew?.end) {
+        const [catchYear, catchMonth, catchDay] = this.catchDate.split('-').map(Number);
+        const catchDateStr = `${catchMonth}-${catchDay}`;
+
+        if (this.isDateBetween(catchDateStr, selectedFishData.curfew.start, selectedFishData.curfew.end)) {
+          this.errorMessages.push(`Ebben az időszakban a hal nem fogható! (${selectedFishData.curfew.start} - ${selectedFishData.curfew.end}) `);
+          return;
+        }
+      }
+    }
 
     const formData = new FormData();
     formData.append('fish', this.selectedFish);
@@ -157,6 +169,22 @@ export class NewcatchComponent {
         }
       }
     });
+  }
+
+  isDateBetween(date: string, start: string, end: string): boolean {
+    const [month, day] = date.split('-').map(Number);
+    const [startMonth, startDay] = start.split('-').map(Number);
+    const [endMonth, endDay] = end.split('-').map(Number);
+
+    const catchDate = new Date(2024, month - 1, day);
+    const startDate = new Date(2024, startMonth - 1, startDay);
+    const endDate = new Date(2024, endMonth - 1, endDay);
+
+    if (startDate <= endDate) {
+      return catchDate >= startDate && catchDate <= endDate;
+    } else {
+      return catchDate >= startDate || catchDate <= endDate;
+    }
   }
 
 
