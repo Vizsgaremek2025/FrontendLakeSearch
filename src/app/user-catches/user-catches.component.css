@@ -68,6 +68,13 @@ button:hover {
   background-color: #0056b3;
 }
 
+.disabled-button {
+  background-color: #ccc !important;
+  color: #666 !important;
+  opacity: 0.6;
+}
+
+
 .alert {
   margin-top: 20px;
   padding: 15px;
@@ -195,5 +202,11 @@ h2 {
   .buttons {
     flex-direction: column;
   }
+}
+
+
+.error-icon {
+  color: red;
+  margin-right: 8px;
 }
 

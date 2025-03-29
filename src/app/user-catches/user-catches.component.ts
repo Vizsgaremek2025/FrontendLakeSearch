@@ -26,6 +26,8 @@ export class UserCatchesComponent {
   selectedFish: string = '';
   selectedMethod: string = '';
   availableMethod: any[] = [];
+  showErrorModal: boolean = false;
+  errorMessage: string = '';
 
   constructor(private http: HttpClient, private authService: AuthService ,private router: Router) {}
 
@@ -95,12 +97,22 @@ export class UserCatchesComponent {
   }
 
 
-  editCatch(catchItem: any) {
-    this.selectedCatch = catchItem;
-    this.selectedFish = catchItem.fish._id;
-    this.selectedMethod = catchItem.method._id;
+  editCatch(catchEntry: any) {
+    if (!catchEntry.catchandrelease || catchEntry.catchandrelease === 'false') {
+      this.errorMessage = 'Ezt a fogást nem tudod szerkeszteni, mert elvitted!';
+      this.showErrorModal = true;
+      return;
+    }
+    this.selectedCatch = catchEntry;
+    this.selectedFish = catchEntry.fish._id;
+    this.selectedMethod = catchEntry.method._id;
     this.showModal = true;
   }
+
+  closeErrorModal() {
+    this.showErrorModal = false;
+  }
+
 
   saveCatch() {
     if (this.selectedCatch) {

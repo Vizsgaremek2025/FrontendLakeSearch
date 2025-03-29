@@ -23,7 +23,10 @@
           <p><strong>Dátum:</strong> {{ catchEntry.date | date:'yyyy-MM-dd' }}</p>
         </div>
         <div class="buttons">
-          <button (click)="editCatch(catchEntry)">Szerkesztés</button>
+          <button (click)="editCatch(catchEntry)" class="edit-button"
+          [ngClass]="{'disabled-button': catchEntry.catchandrelease === false}">
+          Szerkesztés
+        </button>
           <button (click)="confirmDelete(catchEntry)">Törlés</button>
         </div>
       </div>
@@ -74,6 +77,15 @@
         <div class="modal-buttons">
           <button (click)="deleteConfirmed()" class="confirm-btn">Igen, törlöm</button>
         </div>
+      </div>
+    </div>
+  }
+  @if (showErrorModal) {
+    <div class="modal">
+      <div class="modal-content">
+        <span class="close" (click)="closeErrorModal()">&times;</span>
+        <h3><i class="fas fa-exclamation-circle error-icon"></i> Hiba</h3>
+        <p>{{ errorMessage }}</p>
       </div>
     </div>
   }
