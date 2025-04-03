@@ -21,9 +21,11 @@ export class RegisterComponent {
   message: string = '';
   isSuccess: boolean = false;
   isSubmitted: boolean = false;
+  passwordVisible: boolean = false;
+  confirmPasswordVisible: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {
-    console.log('🔄 RegisterComponent betöltődött!');
+    //console.log(' RegisterComponent betöltődött!');
   }
 
 
@@ -69,5 +71,15 @@ export class RegisterComponent {
         this.isSuccess = false;
       }
     });
+  }
+
+
+  togglePasswordVisibility() {
+    this.passwordVisible = !this.passwordVisible;
+  }
+
+
+  toggleConfirmPasswordVisibility() {
+    this.confirmPasswordVisible = !this.confirmPasswordVisible;
   }
 }
