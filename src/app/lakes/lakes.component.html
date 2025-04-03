@@ -1,28 +1,39 @@
-<div class="container">
-  <h1>Tavak listája</h1>
-  <div class="filter-container">
-    <div class="search-container">
-      <input type="text" placeholder="Szűrés név alapján" [(ngModel)]="searchText" (ngModelChange)="applyFilter()"/>
+<div class="lake-container">
+  <div class="lake-header">
+    <h1 class="lake-title">Felfedezhető tavak</h1>
+    <div class="filter-section">
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Keresés tó neve alapján..." [(ngModel)]="searchText" (ngModelChange)="applyFilter()"/>
+      </div>
+      <div class="select-wrapper">
+        <select id="county" [(ngModel)]="selectedCounty" (change)="applyFilter()">
+          <option value="">Összes megye</option>
+          @for (county of counties; track $index) {
+          <option [value]="county._id">{{ county.name }}</option>
+          }
+        </select>
+        <i class="fas fa-chevron-down"></i>
+      </div>
     </div>
-    <select id="county" [(ngModel)]="selectedCounty" (change)="applyFilter()">
-      <option value="">Válassz egy megyét:</option>
-      @for (county of counties; track $index) {
-      <option [value]="county._id">{{ county.name }}</option>
-      }
-    </select>
   </div>
 
-  <div class="lake-list">
+  <div class="lake-grid">
     @for (lake of filteredLakes; track $index) {
     <div class="lake-card">
-      <img [src]="lake.img" class="lake-image" alt="{{ lake.name }}" />
-      <div class="lake-info">
+      <div class="card-image">
+        <img [src]="lake.img" alt="{{ lake.name }}" />
+        <div class="card-badge">{{ lake.steg_number }} <i class="fas fa-anchor"></i></div>
+      </div>
+      <div class="card-content">
         <h3>{{ lake.name }}</h3>
-        <p><strong>Elhelyezkedés: </strong> {{ lake.location }}</p>
-        <p><strong>Vízmélység: </strong>{{ lake.water_depth }} méter</p>
-        <p><strong>Stégek száma: </strong>{{ lake.steg_number }} db</p>
-        <button class="details-button" (click)="viewDetails(lake?._id)">
-          <i class="fas fa-info-circle"></i> Részletek
+        <div class="card-details">
+          <p><i class="fas fa-map-marker-alt"></i> {{ lake.location }}</p>
+          <p><i class="fas fa-ruler-vertical"></i> {{ lake.water_depth }} méter</p>
+        </div>
+        <button class="card-button" (click)="viewDetails(lake?._id)">
+          <span>Részletek</span>
+          <i class="fas fa-arrow-right"></i>
         </button>
       </div>
     </div>
@@ -31,9 +42,13 @@
 
   @if (!disablePagination) {
   <div class="pagination">
-    <button (click)="prevPage()" [disabled]="currentPage === 1">Előző</button>
-    <span>Oldal {{ currentPage }} / {{ totalPages }}</span>
-    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Következő</button>
+    <button (click)="prevPage()" [disabled]="currentPage === 1">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+    <span>{{ currentPage }} / {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+      <i class="fas fa-chevron-right"></i>
+    </button>
   </div>
   }
 </div>
