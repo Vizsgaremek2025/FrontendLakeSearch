@@ -19,6 +19,7 @@ export class LoginComponent {
   message: string = '';
   isSuccess: boolean = false;
   isSubmitted: boolean = false;
+  passwordFieldType: string = 'password';
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -58,5 +59,9 @@ export class LoginComponent {
         this.isSuccess = false;
       }
     });
+  }
+
+  togglePasswordVisibility() {
+    this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
   }
 }
