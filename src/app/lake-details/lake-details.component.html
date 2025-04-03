@@ -1,79 +1,119 @@
-<div class="container">
+<div class="lake-details-container">
   @if (lake) {
     <div class="lake-details-card">
-      <div class="back-button-container">
-        <button class="back-button" (click)="goBack()">Vissza</button>
-        <button class="catch-button" (click)="navigateToCatches()">Fogások</button>
+      <div class="action-buttons">
+        <button class="action-button back" (click)="goBack()">
+          <i class="fas fa-arrow-left"></i> Vissza
+        </button>
+        <button class="action-button catches" (click)="navigateToCatches()">
+          <i class="fas fa-fish"></i> Fogások
+        </button>
       </div>
-      <h1>{{ lake.name }}</h1>
+
+      <h1 class="lake-title">{{ lake.name }}</h1>
+
       @if (lake.img && lake.water_depth && lake.steg_number && lake.description && lake.location) {
-        <img [src]="lake.img" class="lake-image" alt="{{ lake.name }}" />
-        <p class="center-text"><strong>Elhelyezkedés:</strong> {{ lake.location }}</p>
-        <p class="center-text"><strong>Vízmélység:</strong> {{ lake.water_depth }} m</p>
-        <p class="center-text"><strong>Stégek száma:</strong> {{ lake.steg_number }} db</p>
-        <p class="highlight-box justify-text"><strong>Leírás:</strong> {{ lake.description }}</p>
-        <div class="margin">
-          <p>
-            <strong >További elérhetőségek: </strong>
-            <a href="{{ lake.link }}" target="_blank" class="styled-link link-box">{{ lake.link }}</a>
-          </p>
+        <div class="lake-image-container">
+          <img [src]="lake.img" class="lake-image" alt="{{ lake.name }}" />
         </div>
-        <button class="route-button" (click)="openRoute()">Elhelyezkedés</button>
+
+        <div class="info-grid">
+          <div class="info-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>{{ lake.location }}</span>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-ruler-vertical"></i>
+            <span>{{ lake.water_depth }} méter</span>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-anchor"></i>
+            <span>{{ lake.steg_number }} stég</span>
+          </div>
+        </div>
+
+        <div class="description-section">
+          <h3><i class="fas fa-info-circle"></i> Leírás</h3>
+          <p>{{ lake.description }}</p>
+        </div>
+
+        @if (lake.link) {
+          <div class="link-section">
+            <h3><i class="fas fa-external-link-alt"></i> További információk</h3>
+            <a href="{{ lake.link }}" target="_blank" class="modern-link">{{ lake.link }}</a>
+          </div>
+        }
+
+        <button class="map-button" (click)="openRoute()">
+          <i class="fas fa-map-marked-alt"></i> Térkép megnyitása
+        </button>
       }
-      <div >
-        <h3>Nyitvatartás</h3>
-        <table class="opening-hours-table">
-          <thead>
-            <tr>
-              <th>Nap</th>
-              <th>Nyitás</th>
-              <th>Zárás</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (day of lake.opening_hours; track $index) {
-              <tr >
-                <td>{{ day.day }}</td>
-                <td>{{ day.open }}</td>
-                <td>{{ day.close }}</td>
-              </tr>
-            }
-          </tbody>
-        </table>
-      </div>
-      <div>
-        <h3>Tipikus halak</h3>
-        <div class="fish-gallery">
-          @for (fishItem of lake.typical_fish; track $index) {
-            <div class="fish-card">
-              <img [src]="fishItem.fish.img" alt="{{ fishItem.fish.name }}" class="fish-image" />
-              <p>{{ fishItem.fish.name }}</p>
-            </div>
-          }
-        </div>
-      </div>
-      @if (lake.day_ticket) {
-        <div>
-          <h3>Napijegyek</h3>
-          <table class="ticket-table">
+
+      <div class="section">
+        <h3><i class="far fa-clock"></i> Nyitvatartás</h3>
+        <div class="table-container">
+          <table class="modern-table">
             <thead>
               <tr>
-                <th>Típus</th>
-                <th>Ár (Ft)</th>
+                <th>Nap</th>
+                <th>Nyitás</th>
+                <th>Zárás</th>
               </tr>
             </thead>
             <tbody>
-              @for (ticket of lake.day_ticket; track $index) {
+              @for (day of lake.opening_hours; track $index) {
                 <tr>
-                  <td>{{ ticket.type }}</td>
-                  <td>{{ ticket.price }} Ft</td>
+                  <td>{{ day.day }}</td>
+                  <td>{{ day.open }}</td>
+                  <td>{{ day.close }}</td>
                 </tr>
               }
             </tbody>
           </table>
-          <button class="scroll-to-top" (click)="scrollToTop()">Vissza az elejére</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3><i class="fas fa-fish"></i> Tipikus halak</h3>
+        <div class="fish-grid">
+          @for (fishItem of lake.typical_fish; track $index) {
+            <div class="fish-card">
+              <div class="fish-image-container">
+                <img [src]="fishItem.fish.img" alt="{{ fishItem.fish.name }}" class="fish-image" />
+              </div>
+              <p class="fish-name">{{ fishItem.fish.name }}</p>
+            </div>
+          }
+        </div>
+      </div>
+
+      @if (lake.day_ticket) {
+        <div class="section">
+          <h3><i class="fas fa-ticket-alt"></i> Napijegyek</h3>
+          <div class="table-container">
+            <table class="modern-table">
+              <thead>
+                <tr>
+                  <th>Típus</th>
+                  <th>Ár (Ft)</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (ticket of lake.day_ticket; track $index) {
+                  <tr>
+                    <td>{{ ticket.type }}</td>
+                    <td>{{ ticket.price }} Ft</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
         </div>
       }
+
+      <button class="scroll-top" (click)="scrollToTop()">
+        <i class="fas fa-arrow-up"></i> Vissza az elejére
+      </button>
     </div>
   }
 </div>
