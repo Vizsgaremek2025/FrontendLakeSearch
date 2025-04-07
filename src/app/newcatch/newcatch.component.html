@@ -50,8 +50,10 @@
       <textarea id="description" [(ngModel)]="description" placeholder="Add meg a fogás leírását" class="form-control"></textarea>
     </div>
     <div class="form-group checkbox-container">
-      <input id="takeCatch" type="checkbox" [(ngModel)]="takeCatch" class="form-check-input">
-      <label for="takeCatch" class="form-check-label">Elviszem a fogást</label>
+      <div class="checkbox-wrapper">
+        <input id="takeCatch" type="checkbox" [(ngModel)]="takeCatch" class="form-check-input">
+        <label for="takeCatch" class="form-check-label">Elviszem a fogást</label>
+      </div>
     </div>
 
     <button (click)="saveCatch()" class="save-button">Mentés</button>
