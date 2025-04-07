@@ -38,6 +38,24 @@ export class AuthService {
     return this.http.put<any>(`${this.configService.apiUrl}/updatedetails`, details, { headers });
   }
 
+  updatePassword(currentPassword: string, newPassword: string): Observable<any> {
+    const user = this.getLoggedInUser();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${user?.token}`
+    });
+
+    return this.http.put<any>(
+      `${this.configService.apiUrl}/updatepassword`,
+      { currentPassword, newPassword },
+      { headers }
+    );
+  }
+
+  isLoggedIn(): boolean {
+    const user = this.getLoggedInUser();
+    return !!(user && user.token);
+  }
+
   logout() {
     localStorage.removeItem('user');
     this.loggedInUserSubject.next(null);

@@ -1,46 +1,175 @@
+<div class="profile-container">
+  <div class="profile-header">
+    <div class="profile-avatar">
+      <i class="fas fa-user-circle"></i>
+    </div>
+    <h2 class="profile-title">Felhasználói profil</h2>
+  </div>
+  @if (user) {
+    <div>
+      <div class="profile-card">
+        <form (ngSubmit)="onSubmitDetails()">
+          <div class="form-group">
+            <label class="input-label">
+              <i class="fas fa-user"></i>
+              <span>Teljes név</span>
+            </label>
+            <div class="input-wrapper">
+              <input type="text" [(ngModel)]="name" name="name" [readonly]="!editMode">
+              @if (!editMode) {
+                <i class="fas fa-pen edit-icon"></i>
+              }
 
-<div class="profile-card-title">
-  <h3>Felhasználói adatok</h3>
-</div>
-@if (user) {
-  <div class="profile-card">
-    <form (ngSubmit)="onSubmit()">
-      <div>
-        <label>Név:</label>
-        <input type="text" [(ngModel)]="name" name="name" [readonly]="!editMode">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="input-label">
+              <i class="fas fa-envelope"></i>
+              <span>Email cím</span>
+            </label>
+            <div class="input-wrapper">
+              <input type="email" [(ngModel)]="email" name="email" [readonly]="!editMode">
+              @if (!editMode) {
+                <i class="fas fa-pen edit-icon" ></i>
+              }
+            </div>
+          </div>
+          @if (!editMode) {
+            <div >
+              <div class="action-buttons">
+                <button type="button" class="edit-button" (click)="enableEdit()">
+                  <i class="fas fa-edit"></i> Profil szerkesztése
+                </button>
+              </div>
+            </div>
+          }
+
+        </form>
       </div>
-      <div>
-        <label>Email:</label>
-        <input type="email" [(ngModel)]="email" name="email" [readonly]="!editMode">
-      </div>
-      @if (!editMode) {
-        <div >
-          <button type="button" class="edit-button" (click)="enableEdit()">Szerkesztés</button>
+    </div>
+  }
+  @if (editMode) {
+    <div >
+      <div class="modal-overlay">
+        <div class="modal-container">
+          <div class="modal-header">
+            <h3>Profil szerkesztése</h3>
+          </div>
+
+          <div class="tab-buttons">
+            <button [class.active]="activeTab === 'details'" (click)="activeTab = 'details'">
+              <i class="fas fa-user"></i> Adatok
+            </button>
+            <button [class.active]="activeTab === 'password'" (click)="activeTab = 'password'">
+              <i class="fas fa-key"></i> Jelszó
+            </button>
+          </div>
+          @if (activeTab==='details') {
+            <form  (ngSubmit)="onSubmitDetails()">
+              <div class="form-group">
+                <label class="input-label">
+                  <i class="fas fa-user"></i>
+                  <span>Teljes név</span>
+                </label>
+                <input type="text" [(ngModel)]="name" name="name">
+              </div>
+
+              <div class="form-group">
+                <label class="input-label">
+                  <i class="fas fa-envelope"></i>
+                  <span>Email cím</span>
+                </label>
+                <input type="email" [(ngModel)]="email" name="email">
+              </div>
+
+              <div class="modal-actions">
+                <button type="button" class="cancel-button" (click)="cancelEdit()">
+                  <i class="fas fa-times"></i> Mégse
+                </button>
+                <button type="submit" class="save-button">
+                  <i class="fas fa-save"></i> Mentés
+                </button>
+              </div>
+            </form>
+          }
+          @if (activeTab==='password') {
+            <form (ngSubmit)="onSubmitPassword()">
+              <div class="form-group">
+                <label class="input-label">
+                  <i class="fas fa-lock"></i>
+                  <span>Aktuális jelszó</span>
+                </label>
+                <input type="password" [(ngModel)]="currentPassword" name="currentPassword" required>
+              </div>
+
+              <div class="form-group">
+                <label class="input-label">
+                  <i class="fas fa-lock"></i>
+                  <span>Új jelszó</span>
+                </label>
+                <input type="password" [(ngModel)]="newPassword" name="newPassword" required>
+              </div>
+
+              <div class="form-group">
+                <label class="input-label">
+                  <i class="fas fa-lock"></i>
+                  <span>Jelszó megerősítése</span>
+                </label>
+                <input type="password" [(ngModel)]="confirmPassword" name="confirmPassword" required>
+              </div>
+
+              <div class="modal-actions">
+                <button type="button" class="cancel-button" (click)="cancelEdit()">
+                  <i class="fas fa-times"></i> Mégse
+                </button>
+                <button type="submit" class="save-button">
+                  <i class="fas fa-save"></i> Mentés
+                </button>
+              </div>
+            </form>
+          }
         </div>
-      }
-    </form>
+      </div>
+    </div>
+  }
+</div>
+
+@if (showErrorModal) {
+  <div class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>Hiba</h3>
+        <button class="close-button" (click)="closeErrorModal()">x</button>
+      </div>
+      <div class="modal-body">
+        <p>{{ errorMessage }}</p>
+      </div>
+      <div class="modal-actions">
+        <button class="save-button" (click)="closeErrorModal()">
+          <i class="fas fa-check"></i> OK
+        </button>
+      </div>
+    </div>
   </div>
 }
 
 
-@if (editMode) {
-  <div class="modal" >
-    <div class="modal-content">
-      <h2>Szerkesztés</h2>
-      <form (ngSubmit)="onSubmit()">
-        <div>
-          <label>Név:</label>
-          <input type="text" [(ngModel)]="name" name="name">
-        </div>
-        <div>
-          <label>Email:</label>
-          <input type="email" [(ngModel)]="email" name="email">
-        </div>
-        <div class="modal-buttons">
-          <button type="submit">Mentés</button>
-          <button type="button" (click)="cancelEdit()">Mégse</button>
-        </div>
-      </form>
+@if (successMessage) {
+  <div class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>Siker</h3>
+        <button class="close-button" (click)="successMessage = ''">x</button>
+      </div>
+      <div class="modal-body">
+        <p>{{ successMessage }}</p>
+      </div>
+      <div class="modal-actions">
+        <button class="save-button" (click)="successMessage = ''">
+          <i class="fas fa-check"></i> OK
+        </button>
+      </div>
     </div>
   </div>
 }
