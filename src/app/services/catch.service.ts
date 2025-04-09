@@ -18,7 +18,7 @@ export class CatchService {
     this.catchesUrl = `${this.configService.tavakUrl}/catch`;
   }
 
-  getFishByLakeId(lakeId: number | null): Observable<CatchResponse> {
+  getFishByLakeId(lakeId: string | null): Observable<CatchResponse> {
     return this.http.get<CatchResponse>(`${this.catchesUrl}?lakeId=${lakeId}`);
   }
 }

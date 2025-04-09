@@ -5,6 +5,7 @@ import { Lake } from '../models/lake.model';
 import { CountyService } from '../services/county.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CatchService } from '../services/catch.service';
 
 @Component({
   selector: 'app-lakes',
@@ -23,9 +24,10 @@ export class LakesComponent {
   totalPages: number = 1;
   limit: number = 6;
   itemsPerPage: number = 6;
+  lakeCatchCounts: { [lakeId: string]: number } = {};
 
 
-  constructor(private lakeService: LakeService, private countyService: CountyService, private router: Router) {}
+  constructor(private lakeService: LakeService, private countyService: CountyService, private router: Router,private catchService:CatchService) {}
 
   ngOnInit(): void {
     this.loadLakes();
@@ -110,6 +112,7 @@ export class LakesComponent {
 
         this.totalPages = Math.ceil(this.lakes.length / this.limit);
         this.applyPagination();
+        this.loadCatchCounts();
 
         console.log(' Összes tó:', this.lakes);
       },
@@ -117,6 +120,22 @@ export class LakesComponent {
         console.error(' Hiba történt a tavak lekérésekor:', error);
       }
     });
+  }
+
+  loadCatchCounts(): void {
+    this.lakes.forEach(lake => {
+      this.catchService.getFishByLakeId(lake._id).subscribe(response => {
+        if (response.success) {
+          this.lakeCatchCounts[lake._id] = response.data.length;
+        } else {
+          this.lakeCatchCounts[lake._id] = 0;
+        }
+      });
+    });
+  }
+
+  getCatchCount(lakeId: string): number {
+    return this.lakeCatchCounts[lakeId] || 0;
   }
 
   applyFilter() {

@@ -23,7 +23,7 @@
     <div class="lake-card">
       <div class="card-image">
         <img [src]="lake.img" alt="{{ lake.name }}" />
-        <div class="card-badge">{{ lake.steg_number }} <i class="fas fa-anchor"></i></div>
+        <div class="card-badge">{{ getCatchCount(lake._id) }} <i class="fas fa-fish"></i></div>
       </div>
       <div class="card-content">
         <h3>{{ lake.name }}</h3>

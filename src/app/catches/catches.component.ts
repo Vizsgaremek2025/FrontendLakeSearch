@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './catches.component.css'
 })
 export class CatchesComponent {
-  lakeId: number | null = null;
+  lakeId: string | null = null;
   catches: Catch[] = [];
   selectedCatch: Catch | null = null;
   errorMessage: string = '';
