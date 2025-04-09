@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterModule, RouterOutlet } from '@angular/router';
 import { NavComponent } from "./nav/nav.component";
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
@@ -15,4 +15,15 @@ import { FooterComponent } from './footer/footer.component';
 })
 export class AppComponent {
   title = 'FrontendLakeSearch';
+
+  showFooter = true;
+
+  constructor(private router: Router) {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        const hideFooterRoutes = ['/login', '/register'];
+        this.showFooter = !hideFooterRoutes.includes(event.urlAfterRedirects);
+      }
+    });
+  }
 }
