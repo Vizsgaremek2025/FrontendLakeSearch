@@ -8,17 +8,18 @@ import { CatchesComponent } from './catches/catches.component';
 import { NewcatchComponent } from './newcatch/newcatch.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserCatchesComponent } from './user-catches/user-catches.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'lakes', component: LakesComponent },
-  { path: 'lake-details/:id', component: LakeDetailsComponent },
-  { path: 'catches/:lakeId',component: CatchesComponent},
-  { path: 'newcatch',component: NewcatchComponent},
-  { path: 'profile',component: ProfileComponent},
-  { path: 'user-catches',component: UserCatchesComponent}
+  { path: 'lakes', component: LakesComponent ,canActivate: [AuthGuard]},
+  { path: 'lake-details/:id', component: LakeDetailsComponent ,canActivate: [AuthGuard]},
+  { path: 'catches/:lakeId',component: CatchesComponent ,canActivate: [AuthGuard]},
+  { path: 'newcatch',component: NewcatchComponent ,canActivate: [AuthGuard]},
+  { path: 'profile',component: ProfileComponent ,canActivate: [AuthGuard]},
+  { path: 'user-catches',component: UserCatchesComponent ,canActivate: [AuthGuard]}
 ];
 
 export const appRouter = provideRouter(routes);
