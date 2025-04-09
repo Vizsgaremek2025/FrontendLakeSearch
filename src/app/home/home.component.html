@@ -1,41 +1,67 @@
 <div class="container">
   <header>
-    <img class="kep" src="lake_search_logo.png" alt="">
-    <!-- <p>A tökéletes platform horgászok számára!</p> -->
+    <img class="kep" src="/lake_search_logo.png" alt="Lake Search logó">
   </header>
 
   <section class="intro">
     <h2>Üdvözöl a Lake Search!</h2>
-    <p>Fedezd fel a legjobb horgászvizeket, ismerd meg az ott élő halakat, és oszd meg fogásaidat másokkal.</p>
+    <p>Fedezd fel a legjobb horgászhelyeket, ismerd meg a helyi halfajtákat, és oszd meg fogásaidat a közösséggel.</p>
   </section>
 
   <section class="features">
     <div class="feature">
-      <h3>Interaktív tókereső</h3>
-      <p>Keresd meg a legjobb horgásztavakat és nézd meg a részleteket.</p>
+      <div class="feature-icon">
+        <i class="fas fa-map-marked-alt"></i>
+      </div>
+      <h3>Interaktív Tókereső</h3>
+      <p>Találd meg a legjobb horgásztavakat és tekints meg részletes információkat minden helyszínről.</p>
     </div>
     <div class="feature">
-      <h3>Fogásnapló</h3>
+      <div class="feature-icon">
+        <i class="fas fa-book"></i>
+      </div>
+      <h3>Fogási Napló</h3>
       <p>Rögzítsd és oszd meg fogásaidat más horgászokkal.</p>
     </div>
     <div class="feature">
+      <div class="feature-icon">
+        <i class="fas fa-user-circle"></i>
+      </div>
       <h3>Személyre szabott profil</h3>
-      <p>Tárold és elemezd a saját horgászadataidat.</p>
+      <p>Mentsd el és elemezd személyes horgászadataidat.</p>
     </div>
   </section>
 
   <section class="gallery">
-    <h2>Képgaléria</h2>
+    <h2>Fotógaléria</h2>
     <div class="images">
-      <img src="https://stipendiumhungaricum.hu/wp-content/uploads/2023/07/balaton_borito.jpg" alt="Tó 1">
-      <img src="https://stipendiumhungaricum.hu/wp-content/uploads/2023/07/balaton_borito.jpg" alt="Tó 2">
-      <img src="https://stipendiumhungaricum.hu/wp-content/uploads/2023/07/balaton_borito.jpg" alt="Fogás">
+      <img src="http://pecasvendeghaz.hu/wp-content/uploads/2020/06/horgaszat1.jpg" >
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx4LX8D8g5ztJsuZbFy5rETuHC67rwBon4lA&s" >
+      <img src="https://sneci.hu/_user/page/news/211.jpg" >
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReQv9ENeKgAqSGZ3AVPpEESf1biXSE7IuSkQ&s" >
+      <img src="https://badacsony.com/userfiles/4/0/40f2dc2de0115e2228fd9c7a9b1fb8c4_thumb_640x425.jpg" >
+      <img src="https://poganyito.hu/wp-content/uploads/2023/10/Ejszakai-horgaszat.jpg" >
     </div>
   </section>
 
-
-
-
-
+  <section class="faq">
+    <h2>Gyakori kérdések</h2>
+    <div class="faq-container">
+      @for (item of faqItems; track $index) {
+        <div class="faq-item"  [class.active]="item.active" (click)="toggleFaqItem(item)">
+          <div class="faq-question">
+            <h3>{{item.question}}</h3>
+            <span class="faq-toggle">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </span>
+          </div>
+          <div class="faq-answer">
+            <p>{{item.answer}}</p>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
 </div>
-
