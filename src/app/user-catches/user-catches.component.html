@@ -1,84 +1,87 @@
 <div class="profile-container">
-  <h2>Profil</h2>
 
   <h3>Fogásaid:</h3>
   @if (showEmptyModal) {
-    <div class="modal">
-      <div class="modal-content">
-        <span class="close" (click)="closeEmptyModal()">&times;</span>
-        <h3>Nincsenek fogásaid</h3>
-        <p>Úgy tűnik, még nem mentettél egyetlen fogást sem.</p>
-        <button (click)="navigateToCatchCreation()">Fogás hozzáadása</button>
-      </div>
+  <div class="modal">
+    <div class="modal-content">
+      <span class="close" (click)="closeEmptyModal()">&times;</span>
+      <h3>Nincsenek fogásaid</h3>
+      <p>Úgy tűnik, még nem mentettél egyetlen fogást sem.</p>
+      <button (click)="navigateToCatchCreation()">Fogás hozzáadása</button>
     </div>
+  </div>
   }
 
   <div class="catch-cards">
     @for (catchEntry of userCatches; track $index) {
-      <div class="catch-card">
-        <img [src]="catchEntry.img" alt="Hal képe" class="catch-img" />
-        <div class="catch-details">
-          <p><strong>Tó:</strong> {{ catchEntry.lake.name }}</p>
-          <p><strong>Hal:</strong> {{ catchEntry.fish.name }}</p>
-          <p><strong>Dátum:</strong> {{ catchEntry.date | date:'yyyy-MM-dd' }}</p>
+    <div class="catch-card">
+      <img [src]="catchEntry.img" alt="Hal képe" class="catch-img" />
+      <div class="catch-details">
+        <p><strong>Tó:</strong> {{ catchEntry.lake.name }}</p>
+        <p><strong>Hal:</strong> {{ catchEntry.fish.name }}</p>
+        <p><strong>Dátum:</strong> {{ catchEntry.date | date:'yyyy-MM-dd' }}</p>
+      </div>
+      <div class="buttons">
+        <div class="left-buttons">
+          <i class="fas fa-edit edit-icon"
+             (click)="editCatch(catchEntry)"
+             [ngClass]="{'disabled-icon': catchEntry.catchandrelease === false}"></i>
         </div>
-        <div class="buttons">
-          <button (click)="editCatch(catchEntry)" class="edit-button"
-          [ngClass]="{'disabled-button': catchEntry.catchandrelease === false}">
-          Szerkesztés
-        </button>
-          <button (click)="confirmDelete(catchEntry)">Törlés</button>
+        <div class="right-buttons">
+          <i class="fas fa-trash delete-icon" (click)="confirmDelete(catchEntry)"></i>
         </div>
       </div>
+
+    </div>
     }
   </div>
   @if (showModal) {
-    <div class="modal">
-      <div class="modal-content">
-        <span class="close" (click)="closeModal()">&times;</span>
-        <h3>Fogás Szerkesztése</h3>
+  <div class="modal">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h3>Fogás Szerkesztése</h3>
 
-        <form (ngSubmit)="saveCatch()">
-          <label for="fishName">Hal neve:</label>
-          <select id="fish" [(ngModel)]="selectedFish" name="fish" class="form-control">
-            @for (fish of availableFish; track $index) {
-              <option [value]="fish._id">{{ fish.name }}</option>
-            }
-          </select>
-          <label for="weight">Súly:</label>
-          <input type="number" id="weight" [(ngModel)]="selectedCatch.weight" name="weight" required />
+      <form (ngSubmit)="saveCatch()">
+        <label for="fishName">Hal neve:</label>
+        <select id="fish" [(ngModel)]="selectedFish" name="fish" class="form-control">
+          @for (fish of availableFish; track $index) {
+          <option [value]="fish._id">{{ fish.name }}</option>
+          }
+        </select>
+        <label for="weight">Súly:</label>
+        <input type="number" id="weight" [(ngModel)]="selectedCatch.weight" name="weight" required />
 
-          <label for="weight">Hossz (cm):</label>
-          <input type="number" id="length" [(ngModel)]="selectedCatch.length" name="length" required />
+        <label for="weight">Hossz (cm):</label>
+        <input type="number" id="length" [(ngModel)]="selectedCatch.length" name="length" required />
 
-          <label for="bait">Csali:</label>
-          <input type="text" id="bait" [(ngModel)]="selectedCatch.bait" name="bait" required />
+        <label for="bait">Csali:</label>
+        <input type="text" id="bait" [(ngModel)]="selectedCatch.bait" name="bait" required />
 
-          <label for="methodName">Módszer:</label>
-          <select id="method" [(ngModel)]="selectedMethod" name="method" class="form-control">
-            @for (method of availableMethod; track $index) {
-              <option [value]="method._id">{{ method.name }}</option>
-            }
-          </select>
+        <label for="methodName">Módszer:</label>
+        <select id="method" [(ngModel)]="selectedMethod" name="method" class="form-control">
+          @for (method of availableMethod; track $index) {
+          <option [value]="method._id">{{ method.name }}</option>
+          }
+        </select>
 
-          <label for="description">Leírás:</label>
-          <textarea id="description" [(ngModel)]="selectedCatch.description" name="description" required></textarea>
+        <label for="description">Leírás:</label>
+        <textarea id="description" [(ngModel)]="selectedCatch.description" name="description" required></textarea>
 
-          <button type="submit">Mentés</button>
-        </form>
-      </div>
+        <button type="submit">Mentés</button>
+      </form>
     </div>
+  </div>
   }
   @if (showDeleteModal) {
-    <div class="modal">
-      <div class="modal-content">
-        <span class="close" (click)="closeDeleteModal()">&times;</span>
-        <h3>Biztosan törölni szeretnéd?</h3>
-        <div class="modal-buttons">
-          <button (click)="deleteConfirmed()" class="confirm-btn">Igen, törlöm</button>
-        </div>
+  <div class="modal">
+    <div class="modal-content">
+      <span class="close" (click)="closeDeleteModal()">&times;</span>
+      <h3>Biztosan törölni szeretnéd?</h3>
+      <div class="modal-buttons">
+        <button (click)="deleteConfirmed()" class="confirm-btn">Igen, törlöm</button>
       </div>
     </div>
+  </div>
   }
   @if (showErrorModal) {
     <div class="modal">
