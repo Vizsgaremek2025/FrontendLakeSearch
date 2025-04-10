@@ -1,4 +1,3 @@
-
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
@@ -33,11 +32,14 @@ export class NewcatchComponent {
   image: File | null = null;
   takeCatch: boolean = false;
   errorMessage: string = '';
-  errorMessages:string[]=[]
+  errorMessages: string[] = [];
   generalMaxWeight: number = 50;
   generalMaxLength: number = 150;
+  selectedFile: File | null = null;
+  imagePreview: string | ArrayBuffer | null = null;
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
+
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   ngOnInit() {
     this.getLakes();
@@ -56,7 +58,28 @@ export class NewcatchComponent {
   onFileSelected(event: any) {
     const file = event.target.files[0];
     if (file) {
-      this.image = file;
+      if (!file.type.startsWith('image/')) {
+        alert('Csak képfájl tölthető fel!');
+        return;
+      }
+
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result;
+      };
+      reader.readAsDataURL(file);
+
+      this.selectedFile = file;
+    }
+  }
+
+  removeImage() {
+    this.imagePreview = null;
+    this.selectedFile = null;
+    const fileInput = document.getElementById('imageUpload') as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = '';
     }
   }
 
@@ -127,7 +150,7 @@ export class NewcatchComponent {
         const catchDateStr = `${catchMonth}-${catchDay}`;
 
         if (this.isDateBetween(catchDateStr, selectedFishData.curfew.start, selectedFishData.curfew.end)) {
-          this.errorMessages.push(`Ebben az időszakban a hal nem fogható! (${selectedFishData.curfew.start} - ${selectedFishData.curfew.end}) `);
+          this.errorMessages.push(`Ebben az időszakban a hal nem fogható! (${selectedFishData.curfew.start} - ${selectedFishData.curfew.end})`);
           return;
         }
       }
@@ -145,11 +168,8 @@ export class NewcatchComponent {
     formData.append('user', this.userId);
     formData.append('catchandrelease', this.takeCatch ? 'false' : 'true');
 
-
-
-
-    if (this.image) {
-      formData.append('img', this.image, this.image.name);
+    if (this.selectedFile) {
+      formData.append('img', this.selectedFile, this.selectedFile.name);
     }
 
     this.http.post('http://localhost:3000/catch/create', formData).subscribe({
@@ -199,13 +219,16 @@ export class NewcatchComponent {
     this.selectedLake = '';
     this.image = null;
     this.takeCatch = false;
-
+    this.selectedFile = null;
+    this.imagePreview = null;
 
     const fileInput = document.getElementById('imageUpload') as HTMLInputElement;
     if (fileInput) {
       fileInput.value = '';
     }
   }
+
+
   openModal() {
     this.isModalOpen = true;
   }

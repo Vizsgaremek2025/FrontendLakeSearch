@@ -13,13 +13,13 @@
       <label for="fish">Válassz halat:</label>
       <select id="fish" [(ngModel)]="selectedFish" class="form-control">
         @for (fish of availableFish; track $index) {
-          <option  [value]="fish._id">{{ fish.name }}</option>
+          <option [value]="fish._id">{{ fish.name }}</option>
         }
       </select>
     </div>
     <div class="form-group">
       <label for="weight">Súly (kg):</label>
-      <input id="weight" type="number" [(ngModel)]="fishWeight"  [min]="0.1" [max]="generalMaxWeight" placeholder="Add meg a súlyt kg-ban" class="form-control">
+      <input id="weight" type="number" [(ngModel)]="fishWeight" [min]="0.1" [max]="generalMaxWeight" placeholder="Add meg a súlyt kg-ban" class="form-control">
     </div>
     <div class="form-group">
       <label for="length">Hossz (cm):</label>
@@ -27,7 +27,27 @@
     </div>
     <div class="form-group">
       <label for="imageUpload">Kép feltöltése:</label>
-      <input id="imageUpload" type="file" (change)="onFileSelected($event)" class="form-control" accept="image/*">
+      <div class="file-upload-container">
+        <label class="file-upload-label">
+          <input id="imageUpload" type="file" (change)="onFileSelected($event)" accept="image/*" class="file-upload-input">
+          <div class="file-upload-design" [class.has-image]="imagePreview">
+            @if (!imagePreview) {
+              <div  class="upload-instructions">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <span class="file-upload-text">Kattints a kép feltöltéséhez</span>
+              </div>
+            }
+            @if (imagePreview) {
+              <div  class="image-preview-container">
+                <img [src]="imagePreview" alt="Kép előnézet" class="image-preview">
+                <button type="button" class="image-remove" (click)="removeImage()">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            }
+          </div>
+        </label>
+      </div>
     </div>
     <div class="form-group">
       <label for="date">Dátum:</label>
@@ -37,7 +57,7 @@
       <label for="method">Válassz módszert:</label>
       <select id="method" [(ngModel)]="selectedMethod" class="form-control">
         @for (method of availableMethod; track $index) {
-          <option  [value]="method._id">{{ method.name }}</option>
+          <option [value]="method._id">{{ method.name }}</option>
         }
       </select>
     </div>
@@ -58,18 +78,18 @@
 
     <button (click)="saveCatch()" class="save-button">Mentés</button>
   </div>
-    @for (error of errorMessages; track $index) {
-      <div  class="alert alert-danger">
-        {{ error }}
-      </div>
-    }
+  @for (error of errorMessages; track $index) {
+    <div class="alert alert-danger">
+      {{ error }}
+    </div>
+  }
 </div>
 
 
 <div id="successModal" class="modal" [ngClass]="{'show': isModalOpen}">
   <div class="modal-content">
     <div class="icon-container">
-      <i class="fas fa-check-circle" style="font-size: 50px; color: green;"></i>
+      <i class="fas fa-check-circle"></i>
     </div>
     <p>A fogás sikeresen mentve!</p>
     <button (click)="closeModal()">OK</button>

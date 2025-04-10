@@ -247,3 +247,118 @@ input[type="date"].form-control::-webkit-calendar-picker-indicator {
     min-height: 46px;
   }
 }
+
+
+.file-upload-container {
+  width: 100%;
+}
+
+.file-upload-label {
+  display: block;
+  cursor: pointer;
+}
+
+.file-upload-input {
+  display: none;
+}
+
+.file-upload-design {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  border: 2px dashed #cce0f0;
+  border-radius: 8px;
+  background-color: #f5f9fd;
+  transition: all 0.3s ease;
+  text-align: center;
+  min-height: 150px;
+  position: relative;
+  overflow: hidden;
+}
+
+.file-upload-design.has-image {
+  padding: 0;
+  border: 1px solid #e0ecf7;
+  background: white;
+}
+
+.upload-instructions {
+  padding: 20px;
+}
+
+.file-upload-label:hover .file-upload-design:not(.has-image),
+.file-upload-input:focus + .file-upload-design:not(.has-image) {
+  border-color: #2a6ab3;
+  background-color: #edf4fc;
+}
+
+.file-upload-design i {
+  font-size: 32px;
+  color: #2a6ab3;
+  margin-bottom: 10px;
+}
+
+.file-upload-text {
+  font-size: 15px;
+  color: #2d4e68;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.file-upload-hint {
+  font-size: 13px;
+  color: #7a8fa6;
+}
+
+.image-preview-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.image-preview {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.image-remove {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 35px;
+  height: 35px;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  color: #dc2626;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.image-remove:hover {
+  background: white;
+  transform: scale(1.1);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+}
+
+.image-remove i {
+  font-size: 18px;
+  margin: 0;
+}
+
+
+.file-upload-design.drag-over:not(.has-image) {
+  border-color: #2a6ab3;
+  background-color: #e6f0fa;
+  box-shadow: 0 0 0 3px rgba(42, 106, 179, 0.1);
+}
