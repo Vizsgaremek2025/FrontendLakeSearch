@@ -38,19 +38,29 @@
   }
 
   @if (selectedCatch) {
-    <div class="modal" >
-      <div class="modal-content">
-        <span class="close" (click)="closeModal()">&times;</span>
-        <h2>{{ selectedCatch.fish?.name }}</h2>
-        <img [src]="selectedCatch.img || selectedCatch.fish?.img" alt="{{ selectedCatch.fish?.name }}" class="catch-image">
+  <div class="modal">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h2>{{ selectedCatch.fish?.name }}</h2>
+      <img [src]="selectedCatch.img || selectedCatch.fish?.img" alt="{{ selectedCatch.fish?.name }}"
+        class="modal-image">
+
+      <div class="modal-details">
         <p><strong>Méret:</strong> {{ selectedCatch.length }} cm</p>
         <p><strong>Súly:</strong> {{ selectedCatch.weight }} kg</p>
         <p><strong>Dátum:</strong> {{ selectedCatch.date | date:'yyyy. MM. dd.' }}</p>
         <p><strong>Felhasználó:</strong> {{ selectedCatch.user?.name }}</p>
         <p><strong>Módszer:</strong> {{ selectedCatch.method?.name }}</p>
         <p><strong>Csali:</strong> {{ selectedCatch.bait }}</p>
-        <p><strong>Leírás:</strong> {{ selectedCatch.description }}</p>
       </div>
+
+      @if (selectedCatch.description) {
+      <div class="description">
+        <strong>Leírás:</strong>
+        <p>{{ selectedCatch.description }}</p>
+      </div>
+      }
     </div>
-   }
+  </div>
+  }
 </div>
