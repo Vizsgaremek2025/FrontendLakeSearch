@@ -16,10 +16,6 @@
             </label>
             <div class="input-wrapper">
               <input type="text" [(ngModel)]="name" name="name" [readonly]="!editMode">
-              @if (!editMode) {
-                <i class="fas fa-pen edit-icon"></i>
-              }
-
             </div>
           </div>
 
@@ -30,9 +26,6 @@
             </label>
             <div class="input-wrapper">
               <input type="email" [(ngModel)]="email" name="email" [readonly]="!editMode">
-              @if (!editMode) {
-                <i class="fas fa-pen edit-icon" ></i>
-              }
             </div>
           </div>
           @if (!editMode) {
