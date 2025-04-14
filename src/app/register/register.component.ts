@@ -56,7 +56,7 @@ export class RegisterComponent {
 
     this.authService.register(this.user).subscribe({
       next: (res) => {
-        console.log('Sikeres regisztráció:', res);
+        // console.log('Sikeres regisztráció:', res);
         this.message = 'Sikeres regisztráció!';
         this.isSuccess = true;
 

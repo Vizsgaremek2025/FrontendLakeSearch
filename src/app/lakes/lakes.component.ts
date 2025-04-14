@@ -39,7 +39,7 @@ export class LakesComponent {
   loadCounties() {
     this.countyService.getCounties().subscribe({
       next: (response) => {
-        console.log('Megyék:', response.data);
+        // console.log('Megyék:', response.data);
         this.counties = response.data;
       },
       error: (error) => {
@@ -56,7 +56,7 @@ export class LakesComponent {
       return matchesCounty && matchesSearch;
     });
 
-    console.log('Szűrt tavak:', this.filteredLakes);
+    // console.log('Szűrt tavak:', this.filteredLakes);
 
 
     if (!this.selectedCounty) {
@@ -96,7 +96,7 @@ export class LakesComponent {
   loadLakes() {
     this.countyService.getCounties().subscribe({
       next: (response) => {
-        console.log(' Megyék és tavak:', response.data);
+        // console.log(' Megyék és tavak:', response.data);
 
         this.lakes = [];
         for (let county of response.data) {
@@ -114,7 +114,7 @@ export class LakesComponent {
         this.applyPagination();
         this.loadCatchCounts();
 
-        console.log(' Összes tó:', this.lakes);
+        // console.log(' Összes tó:', this.lakes);
       },
       error: (error) => {
         console.error(' Hiba történt a tavak lekérésekor:', error);
@@ -169,7 +169,7 @@ export class LakesComponent {
       return;
     }
 
-    console.log(' Navigálás tó részleteihez:', lakeId);
+    // console.log(' Navigálás tó részleteihez:', lakeId);
     this.router.navigate(['/lake-details', lakeId]);
   }
 

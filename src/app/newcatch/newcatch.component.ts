@@ -174,7 +174,7 @@ export class NewcatchComponent {
 
     this.http.post('http://localhost:3000/catch/create', formData).subscribe({
       next: (response) => {
-        console.log('Fogás sikeresen mentve!', response);
+        // console.log('Fogás sikeresen mentve!', response);
         this.isModalOpen = true;
         this.errorMessages = [];
         this.resetForm();

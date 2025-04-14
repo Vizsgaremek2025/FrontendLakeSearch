@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { FaqItem } from '../models/faq.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -41,6 +42,44 @@ export class HomeComponent {
       active: false
     },
   ];
+
+  imageList: string[] = [
+    "http://pecasvendeghaz.hu/wp-content/uploads/2020/06/horgaszat1.jpg",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx4LX8D8g5ztJsuZbFy5rETuHC67rwBon4lA&s",
+    "https://sneci.hu/_user/page/news/211.jpg",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReQv9ENeKgAqSGZ3AVPpEESf1biXSE7IuSkQ&s",
+    "https://badacsony.com/userfiles/4/0/40f2dc2de0115e2228fd9c7a9b1fb8c4_thumb_640x425.jpg",
+    "https://poganyito.hu/wp-content/uploads/2023/10/Ejszakai-horgaszat.jpg"
+  ];
+
+  visibleImages: string[] = [];
+  currentIndex: number = 0;
+
+  ngOnInit() {
+    this.updateVisibleImages();
+  }
+
+  updateVisibleImages() {
+    this.visibleImages = this.imageList.slice(this.currentIndex, this.currentIndex + 3);
+  }
+
+  nextSlide() {
+    if (this.currentIndex + 3 < this.imageList.length) {
+      this.currentIndex += 3;
+      this.updateVisibleImages();
+    }
+  }
+
+
+  prevSlide() {
+    if (this.currentIndex - 3 >= 0) {
+      this.currentIndex -= 3;
+      this.updateVisibleImages();
+    }
+  }
+
+
+
 
   toggleFaqItem(clickedItem: FaqItem): void {
     this.faqItems.forEach(item => {

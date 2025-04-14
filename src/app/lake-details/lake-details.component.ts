@@ -22,7 +22,7 @@ export class LakeDetailsComponent {
 
   ngOnInit(): void {
     const lakeId = this.route.snapshot.paramMap.get('id');
-    console.log('Tó ID:', lakeId);
+    // console.log('Tó ID:', lakeId);
 
     if (!lakeId) {
       console.error('Hiba: nincs érvényes tó ID az URL-ben!');
@@ -32,7 +32,7 @@ export class LakeDetailsComponent {
 
     this.lakeService.getLakeById(lakeId).subscribe({
       next: (response) => {
-        console.log('Backend válasz:', response);
+        // console.log('Backend válasz:', response);
         this.lake = response.data;
       },
       error: (err) => {
