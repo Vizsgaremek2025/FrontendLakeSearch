@@ -40,6 +40,15 @@ export class RegisterComponent {
     }
 
 
+    if (!this.validateEmail(this.user.email)) {
+      this.message = 'Kérlek, érvényes email címet adj meg!';
+      this.isSuccess = false;
+      return;
+    }
+
+
+
+
     if (this.user.password !== this.user.confirmPassword) {
       this.message = 'A jelszavak nem egyeznek!';
       this.isSuccess = false;
@@ -81,5 +90,10 @@ export class RegisterComponent {
 
   toggleConfirmPasswordVisibility() {
     this.confirmPasswordVisible = !this.confirmPasswordVisible;
+  }
+
+  validateEmail(email: string): boolean {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
   }
 }
