@@ -93,7 +93,12 @@
                   <i class="fas fa-lock"></i>
                   <span>Aktuális jelszó</span>
                 </label>
-                <input type="password" [(ngModel)]="currentPassword" name="currentPassword" required>
+                <div class="input-wrapper">
+                  <input [type]="currentPasswordFieldType" [(ngModel)]="currentPassword" name="currentPassword" required>
+                  <i class="fas" [class.fa-eye-slash]="currentPasswordFieldType === 'password'"
+                    [class.fa-eye]="currentPasswordFieldType !== 'password'"
+                    (click)="toggleCurrentPasswordVisibility()" style="cursor: pointer; margin-left: -30px;"></i>
+                </div>
               </div>
 
               <div class="form-group">
@@ -101,7 +106,12 @@
                   <i class="fas fa-lock"></i>
                   <span>Új jelszó</span>
                 </label>
-                <input type="password" [(ngModel)]="newPassword" name="newPassword" required>
+                <div class="input-wrapper">
+                  <input [type]="newPasswordFieldType" [(ngModel)]="newPassword" name="newPassword" required>
+                  <i class="fas" [class.fa-eye-slash]="newPasswordFieldType === 'password'"
+                    [class.fa-eye]="newPasswordFieldType !== 'password'" (click)="toggleNewPasswordVisibility()"
+                    style="cursor: pointer; margin-left: -30px;"></i>
+                </div>
               </div>
 
               <div class="form-group">
@@ -109,8 +119,14 @@
                   <i class="fas fa-lock"></i>
                   <span>Jelszó megerősítése</span>
                 </label>
-                <input type="password" [(ngModel)]="confirmPassword" name="confirmPassword" required>
+                <div class="input-wrapper">
+                  <input [type]="confirmPasswordFieldType" [(ngModel)]="confirmPassword" name="confirmPassword" required>
+                  <i class="fas" [class.fa-eye-slash]="confirmPasswordFieldType === 'password'"
+                    [class.fa-eye]="confirmPasswordFieldType !== 'password'"
+                    (click)="toggleConfirmPasswordVisibility()" style="cursor: pointer; margin-left: -30px;"></i>
+                </div>
               </div>
+
 
               <div class="modal-actions">
                 <button type="button" class="cancel-button" (click)="cancelEdit()">

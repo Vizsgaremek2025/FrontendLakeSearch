@@ -16,6 +16,9 @@ export class ProfileComponent {
   user: UserModel | null = null;
   editMode = false;
   activeTab: 'details' | 'password' = 'details';
+  currentPasswordFieldType: string = 'password';
+  newPasswordFieldType: string = 'password';
+  confirmPasswordFieldType: string = 'password';
 
   name = '';
   email = '';
@@ -97,4 +100,17 @@ export class ProfileComponent {
   closeErrorModal() {
     this.showErrorModal = false;
   }
+
+  toggleCurrentPasswordVisibility() {
+    this.currentPasswordFieldType = this.currentPasswordFieldType === 'password' ? 'text' : 'password';
+  }
+
+  toggleNewPasswordVisibility() {
+    this.newPasswordFieldType = this.newPasswordFieldType === 'password' ? 'text' : 'password';
+  }
+
+  toggleConfirmPasswordVisibility() {
+    this.confirmPasswordFieldType = this.confirmPasswordFieldType === 'password' ? 'text' : 'password';
+  }
+
 }
