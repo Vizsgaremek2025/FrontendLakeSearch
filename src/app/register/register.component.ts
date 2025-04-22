@@ -76,7 +76,7 @@ export class RegisterComponent {
       },
       error: (err) => {
         console.error('Regisztrációs hiba:', err);
-        this.message = err.error.msg || 'Hiba történt a regisztráció során!';
+        this.message =err.error?.error || err.error?.msg || err.error?.message || err.message || 'Hiba történt a regisztráció során!';
         this.isSuccess = false;
       }
     });

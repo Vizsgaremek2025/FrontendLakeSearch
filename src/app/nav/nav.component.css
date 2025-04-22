@@ -75,10 +75,10 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   border-radius: 6px;
   padding: 0.3rem 0;
-  min-width: 130px;
+  min-width: 140px;
   position: absolute;
   right: 0;
-  left: -13px;
+  left: -20px;
   margin-top: 0;
   transform: none !important;
 }
