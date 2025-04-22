@@ -91,7 +91,11 @@ export class ProfileComponent {
       },
       error: (err) => {
         console.error('Hiba a jelszó frissítésekor:', err);
-        this.errorMessage = 'Hiba történt a jelszó frissítésekor.';
+        if (err.status === 401) {
+          this.errorMessage = 'A megadott jelenlegi jelszó helytelen.';
+        } else {
+          this.errorMessage = 'Hiba történt a jelszó frissítésekor.';
+        }
         this.showErrorModal = true;
       }
     });
