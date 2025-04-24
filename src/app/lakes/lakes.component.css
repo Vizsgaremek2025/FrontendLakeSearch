@@ -207,6 +207,56 @@
   cursor: not-allowed;
 }
 
+.favorite-button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 20px;
+  background: #f8fafc;
+  border: 2px solid #e5e7eb;
+  border-radius: 30px;
+  color: #4b5563;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-bottom: 12px;
+  width: 100%;
+}
+
+.favorite-button:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+}
+
+.favorite-button.favorited {
+  background: #fffbeb;
+  border-color: #fde68a;
+  color: #92400e;
+}
+
+.star-container {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.favorite-button i {
+  color: #d1d5db;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 16px;
+}
+
+.favorite-button.favorited i {
+  color: #f59e0b;
+  animation: bounce 0.5s;
+}
+
+.favorite-button:hover i {
+  transform: scale(1.1);
+}
 
 @media (max-width: 768px) {
   .lake-container {

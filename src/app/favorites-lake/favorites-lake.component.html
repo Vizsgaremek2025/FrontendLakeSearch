@@ -1,0 +1,57 @@
+<div class="favorites-container">
+  <!-- Üres állapot modális -->
+  @if (showEmptyStateModal) {
+    <div class="modal">
+      <div class="modal-content">
+        <span class="close" (click)="closeEmptyStateModal()">&times;</span>
+        <h3>Nincsenek kedvenc tavak</h3>
+        <p>Még nincs kiválasztva kedvenc tó. Keress a tavak között, és jelöld ki a kedvenceidet!</p>
+        <button  (click)="navigateToLakes()">Tavak keresése</button>
+      </div>
+    </div>
+  }
+
+  <!-- Törlés megerősítő modális -->
+  @if (showDeleteConfirmationModal) {
+    <div class="modal">
+      <div class="modal-content">
+        <span class="close" (click)="closeDeleteModal()">&times;</span>
+        <h3>Kedvenc tó eltávolítása</h3>
+        <p>Biztosan eltávolítod ezt a tavat a kedvenceid közül?</p>
+        <div class="modal-buttons">
+          <button (click)="confirmDelete()" class="confirm-btn">Eltávolítás</button>
+        </div>
+      </div>
+    </div>
+  }
+
+  <h3>Kedvenc Tavak</h3>
+
+  <div class="lake-grid">
+    @for (lake of favoriteLakes; track lake._id) {
+      <div class="lake-card">
+        <div class="card-image">
+          <img [src]="lake.img" [alt]="lake.name" />
+          <div class="card-badge">{{ getCatchCount(lake._id) }} <i class="fas fa-fish"></i></div>
+        </div>
+        <div class="card-content">
+          <h4>{{ lake.name }}</h4>
+          <div class="card-details">
+            <p><i class="fas fa-map-marker-alt"></i> {{ lake.location }}</p>
+            <p><i class="fas fa-ruler-vertical"></i> {{ lake.water_depth }} méter</p>
+          </div>
+          <div class="card-buttons">
+            <button (click)="viewDetails(lake._id)">
+              <span>Részletek</span>
+              <i class="fas fa-arrow-right"></i>
+            </button>
+            <button class="remove-btn" (click)="openDeleteModal(lake._id)">
+              <i class="fas fa-trash"></i> Eltávolítás
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>
+

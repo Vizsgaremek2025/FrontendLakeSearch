@@ -31,6 +31,12 @@
           <p><i class="fas fa-map-marker-alt"></i> {{ lake.location }}</p>
           <p><i class="fas fa-ruler-vertical"></i> {{ lake.water_depth }} méter</p>
         </div>
+        <button class="favorite-button" (click)="toggleFavorite(lake)" [class.favorited]="lake.isFavorite">
+          <div class="star-container">
+            <i class="fas fa-star"></i>
+          </div>
+          <span>{{ lake.isFavorite ? 'Kedvenc' : 'Kedvenchez adás' }}</span>
+        </button>
         <button class="card-button" (click)="viewDetails(lake?._id)">
           <span>Részletek</span>
           <i class="fas fa-arrow-right"></i>

@@ -25,6 +25,7 @@ export interface Lake {
     price: number;
   }[];
   link:string
+  isFavorite:boolean
 }
 
 export interface Fish {

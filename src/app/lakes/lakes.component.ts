@@ -6,11 +6,12 @@ import { CountyService } from '../services/county.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CatchService } from '../services/catch.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-lakes',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [FormsModule],
   templateUrl: './lakes.component.html',
   styleUrl: './lakes.component.css'
 })
@@ -19,6 +20,8 @@ export class LakesComponent {
   filteredLakes: Lake[] = [];
   searchText: string = '';
   selectedCounty: string = '';
+  showOnlyFavorites: boolean = false;
+
   counties: { _id: string; name: string }[] = [];
   currentPage: number = 1;
   totalPages: number = 1;
@@ -26,20 +29,22 @@ export class LakesComponent {
   itemsPerPage: number = 6;
   lakeCatchCounts: { [lakeId: string]: number } = {};
 
-
-  constructor(private lakeService: LakeService, private countyService: CountyService, private router: Router,private catchService:CatchService) {}
+  constructor(
+    private lakeService: LakeService,
+    private countyService: CountyService,
+    private router: Router,
+    private catchService: CatchService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.loadLakes();
     this.loadCounties();
   }
 
-
-
   loadCounties() {
     this.countyService.getCounties().subscribe({
       next: (response) => {
-        // console.log('Megyék:', response.data);
         this.counties = response.data;
       },
       error: (error) => {
@@ -48,63 +53,19 @@ export class LakesComponent {
     });
   }
 
-
-  filterLakes() {
-    this.filteredLakes = this.lakes.filter(lake => {
-      const matchesCounty = this.selectedCounty ? lake.county?._id === this.selectedCounty : true;
-      const matchesSearch = lake.name.toLowerCase().includes(this.searchText.toLowerCase());
-      return matchesCounty && matchesSearch;
-    });
-
-    // console.log('Szűrt tavak:', this.filteredLakes);
-
-
-    if (!this.selectedCounty) {
-      this.currentPage = 1;
-      this.totalPages = Math.ceil(this.filteredLakes.length / this.itemsPerPage);
-      this.applyPagination();
-    }
-  }
-
-
-  nextPage() {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.loadLakes();
-    }
-  }
-
-
-  prevPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.loadLakes();
-    }
-  }
-
-  get totalLakes(): number {
-    return this.filteredLakes.length;
-  }
-
-  get disablePagination(): boolean {
-    return this.searchText.trim() !== '' || this.selectedCounty !== '';
-  }
-
-
-
-
   loadLakes() {
     this.countyService.getCounties().subscribe({
       next: (response) => {
-        // console.log(' Megyék és tavak:', response.data);
-
         this.lakes = [];
+        const favorites = this.getFavoriteIds();
+
         for (let county of response.data) {
           for (let lake of county.lake) {
             lake.county = {
               _id: county._id,
               name: county.name
             };
+            lake.isFavorite = favorites.includes(lake._id);
             this.lakes.push(lake);
           }
         }
@@ -114,28 +75,37 @@ export class LakesComponent {
         this.applyPagination();
         this.loadCatchCounts();
 
-        // console.log(' Összes tó:', this.lakes);
       },
       error: (error) => {
-        console.error(' Hiba történt a tavak lekérésekor:', error);
+        console.error('Hiba történt a tavak lekérésekor:', error);
       }
     });
   }
 
-  loadCatchCounts(): void {
-    this.lakes.forEach(lake => {
-      this.catchService.getFishByLakeId(lake._id).subscribe(response => {
-        if (response.success) {
-          this.lakeCatchCounts[lake._id] = response.data.length;
-        } else {
-          this.lakeCatchCounts[lake._id] = 0;
-        }
-      });
-    });
+  toggleFavorite(lake: Lake): void {
+    const user = this.authService.getLoggedInUser();
+    if (!user) return;
+
+    const key = `favorites_${user.email}`;
+    let favorites = JSON.parse(localStorage.getItem(key) || '[]');
+
+    if (favorites.includes(lake._id)) {
+      favorites = favorites.filter((id: string) => id !== lake._id);
+      lake.isFavorite = false;
+    } else {
+      favorites.push(lake._id);
+      lake.isFavorite = true;
+    }
+
+    localStorage.setItem(key, JSON.stringify(favorites));
+    this.applyFilter();
   }
 
-  getCatchCount(lakeId: string): number {
-    return this.lakeCatchCounts[lakeId] || 0;
+  getFavoriteIds(): string[] {
+    const user = this.authService.getLoggedInUser();
+    if (!user) return [];
+    const key = `favorites_${user.email}`;
+    return JSON.parse(localStorage.getItem(key) || '[]');
   }
 
   applyFilter() {
@@ -150,9 +120,14 @@ export class LakesComponent {
         lake.name.toLowerCase().includes(this.searchText.toLowerCase())
       );
     }
+
+    if (this.showOnlyFavorites) {
+      filtered = filtered.filter(lake => lake.isFavorite);
+    }
+
     this.filteredLakes = filtered;
 
-    if (this.searchText.trim() === '' && this.selectedCounty === '') {
+    if (!this.selectedCounty && this.searchText.trim() === '' && !this.showOnlyFavorites) {
       this.applyPagination();
     }
   }
@@ -163,13 +138,38 @@ export class LakesComponent {
     this.filteredLakes = this.lakes.slice(start, end);
   }
 
-  viewDetails(lakeId: string | undefined) {
-    if (!lakeId) {
-      console.error(' Hiba: A tó ID undefined vagy üres!', lakeId);
-      return;
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.applyPagination();
     }
+  }
 
-    // console.log(' Navigálás tó részleteihez:', lakeId);
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.applyPagination();
+    }
+  }
+
+  get disablePagination(): boolean {
+    return this.searchText.trim() !== '' || this.selectedCounty !== '' || this.showOnlyFavorites;
+  }
+
+  loadCatchCounts(): void {
+    this.lakes.forEach(lake => {
+      this.catchService.getFishByLakeId(lake._id).subscribe(response => {
+        this.lakeCatchCounts[lake._id] = response.success ? response.data.length : 0;
+      });
+    });
+  }
+
+  getCatchCount(lakeId: string): number {
+    return this.lakeCatchCounts[lakeId] || 0;
+  }
+
+  viewDetails(lakeId: string | undefined) {
+    if (!lakeId) return;
     this.router.navigate(['/lake-details', lakeId]);
   }
 

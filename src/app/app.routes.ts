@@ -9,6 +9,7 @@ import { NewcatchComponent } from './newcatch/newcatch.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserCatchesComponent } from './user-catches/user-catches.component';
 import { AuthGuard } from './guards/auth.guard';
+import { FavoritesLakeComponent } from './favorites-lake/favorites-lake.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -19,7 +20,8 @@ export const routes: Routes = [
   { path: 'catches/:lakeId',component: CatchesComponent ,canActivate: [AuthGuard]},
   { path: 'newcatch',component: NewcatchComponent ,canActivate: [AuthGuard]},
   { path: 'profile',component: ProfileComponent ,canActivate: [AuthGuard]},
-  { path: 'user-catches',component: UserCatchesComponent ,canActivate: [AuthGuard]}
+  { path: 'user-catches',component: UserCatchesComponent ,canActivate: [AuthGuard]},
+  { path: 'favorites-lake',component: FavoritesLakeComponent ,canActivate: [AuthGuard]}
 ];
 
 export const appRouter = provideRouter(routes);
