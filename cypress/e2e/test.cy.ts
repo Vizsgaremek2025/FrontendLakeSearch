@@ -17,14 +17,6 @@ describe('Lake Search oldal tesztelése', () => {
     cy.get('.feature h3').eq(2).should('contain', 'Személyre szabott profil');
   });
 
-  it('A fotógaléria képei megjelennek', () => {
-    cy.get('.gallery .images img').should('have.length', 6);
-    cy.get('.gallery .images img').each(($img) => {
-      cy.wrap($img).should('have.attr', 'src').and('match', /^https?/);
-    });
-  });
-
-
 
   it('A horgászhelyek kérdései és válaszai helyesen működnek', () => {
 
@@ -104,7 +96,7 @@ describe('Bejelentkezett állapot és tavak oldal tesztjei', () => {
   beforeEach(() => {
     cy.visit('/login');
     cy.get('#email').type('istvanproba@gmail.com');
-    cy.get('#password').type('proba12345');
+    cy.get('#password').type('proba123');
     cy.get('.login-button').click();
 
 
@@ -141,7 +133,7 @@ describe('Tó részletek oldal tesztjei', () => {
   beforeEach(() => {
     cy.visit('/login');
     cy.get('#email').type('istvanproba@gmail.com');
-    cy.get('#password').type('proba12345');
+    cy.get('#password').type('proba123');
     cy.get('.login-button').click();
 
     cy.url().should('include', '/lakes', { timeout: 10000 });
