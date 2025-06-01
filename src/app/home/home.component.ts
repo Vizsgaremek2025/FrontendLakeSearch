@@ -44,7 +44,7 @@ export class HomeComponent {
   ];
 
   imageList: string[] = [
-    "http://pecasvendeghaz.hu/wp-content/uploads/2020/06/horgaszat1.jpg",
+    "https://pecaverzum.hu/upload/articles/thumb_850x565_crop3_80/horgaszrend-freepik_992.jpg",
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx4LX8D8g5ztJsuZbFy5rETuHC67rwBon4lA&s",
     "https://sneci.hu/_user/page/news/211.jpg",
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReQv9ENeKgAqSGZ3AVPpEESf1biXSE7IuSkQ&s",
